@@ -9,21 +9,22 @@
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="accordion">
+        <li class="navigation-header"><a class="navigation-header-text">Core</a><i
+                class="navigation-header-icon material-icons">more_horiz</i>
+        </li>
         {{-- home/apertments --}}
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">apartment</i>
                 <span class="menu-title" data-i18n="Dashboard">Home/Apertments</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                    <li><a href="dashboard-modern.html"><i class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="Modern">Modern</span></a>
+                <li><a href="{{url('apertments')}}"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Apertments</span></a>
                     </li>
                     <li><a href="dashboard-ecommerce.html"><i class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="eCommerce">eCommerce</span></a>
+                                data-i18n="eCommerce">Collect Rent</span></a>
                     </li>
-                    <li><a href="dashboard-analytics.html"><i class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="Analytics">Analytics</span></a>
-                    </li>
+
                 </ul>
             </div>
         </li>
@@ -32,45 +33,14 @@
                     class="material-icons">storefront</i><span class="menu-title" data-i18n="Templates">Shops</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                    <li><a class="collapsible-header waves-effect waves-cyan" href="JavaScript:void(0)"><i
-                                class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="Vertical">Vertical</span></a>
-                        <div class="collapsible-body">
-                            <ul class="collapsible" data-collapsible="accordion">
-                                <li><a
-                                        href="https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/"><i
-                                            class="material-icons">radio_button_unchecked</i><span
-                                            data-i18n="Modern Menu">Modern Menu</span></a>
-                                </li>
-                                <li><a
-                                        href="https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-menu-nav-dark-template/"><i
-                                            class="material-icons">radio_button_unchecked</i><span
-                                            data-i18n="Navbar Dark">Navbar Dark</span></a>
-                                </li>
-                                <li><a
-                                        href="https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-gradient-menu-template/"><i
-                                            class="material-icons">radio_button_unchecked</i><span
-                                            data-i18n="Gradient Menu">Gradient Menu</span></a>
-                                </li>
-                                <li><a href="index-2.html"><i class="material-icons">radio_button_unchecked</i><span
-                                            data-i18n="Dark Menu">Dark Menu</span></a>
-                                </li>
-                            </ul>
-                        </div>
+                    <li><a href="dashboard-modern.html"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Shops</span></a>
                     </li>
-                    <li><a class="collapsible-header waves-effect waves-cyan" href="JavaScript:void(0)"><i
-                                class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="Horizontal">Horizontal</span></a>
-                        <div class="collapsible-body">
-                            <ul class="collapsible" data-collapsible="accordion">
-                                <li><a
-                                        href="https://pixinvent.com/materialize-material-design-admin-template/html/ltr/horizontal-menu-template/"><i
-                                            class="material-icons">radio_button_unchecked</i><span
-                                            data-i18n="Horizontal Menu">Horizontal Menu</span></a>
-                                </li>
-                            </ul>
-                        </div>
+                    <li><a href="dashboard-ecommerce.html"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="eCommerce">Collect Rent</span></a>
                     </li>
+
+
                 </ul>
             </div>
         </li>

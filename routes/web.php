@@ -27,7 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //home route
-
+include 'homeRoute.php';
 //shop route
-
+include 'shopRoute.php';
 //rent route
+include 'rentRoute.php';

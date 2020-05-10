@@ -33,6 +33,17 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/vendors.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/animate-css/animate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/chartist-js/chartist.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/flag-icon/css/flag-icon.min.css')}}">
+    <link rel="stylesheet" type="text/css"
+        href="{{asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css')}}">
+    <link rel="stylesheet" type="text/css"
+        href="{{asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css')}}">
+    <link rel="stylesheet" type="text/css"
+        href="{{asset('app-assets/vendors/data-tables/css/select.dataTables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/data-tables-custom.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/data-tables.min.css')}}">
+
+
     <link rel="stylesheet" type="text/css"
         href="{{asset('app-assets/vendors/chartist-js/chartist-plugin-tooltip.css')}}">
     <!-- END: VENDOR CSS-->
@@ -43,9 +54,11 @@ License: You must have a valid license purchased only from themeforest(the above
         href="{{asset('app-assets/css/themes/vertical-dark-menu-template/style.min.css')}}">
     <!-- END: Page Level CSS-->
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/dashboard-modern.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/intro.min.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/dashboard-modern.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/intro.min.css')}}"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/custom/custom.css')}}">
+    <!-- BEGIN VENDOR JS-->
+    <script src="{{asset('app-assets/js/vendors.min.js')}}"></script>
 
     <!-- END: Custom CSS-->
 </head>
@@ -77,7 +90,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- START RIGHT SIDEBAR NAV -->
 
                     <!-- END RIGHT SIDEBAR NAV -->
-                    
+
                 </div>
                 <div class="content-overlay"></div>
             </div>
@@ -298,13 +311,21 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/js/scripts/customizer.min.js')}}"></script>
     <!-- END THEME  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
+    {{-- <script src="{{asset('app-assets/vendors/jquery/dist/jquery.min.js')}}"></script> --}}
     <script src="{{asset('app-assets/vendors/chartjs/chart.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/chartist-js/chartist.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/chartist-js/chartist-plugin-tooltip.js')}}"></script>
     <script src="{{asset('app-assets/vendors/chartist-js/chartist-plugin-fill-donut.min.js')}}"></script>
+
+
+    <script src="{{asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}">
+    </script>
+    <script src="{{asset('app-assets/vendors/data-tables/js/dataTables.select.min.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/js/scripts/data-tables.min.js')}}"></script> --}}
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN PAGE LEVEL JS-->
-    <script src="{{asset('app-assets/js/scripts/dashboard-modern.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/js/scripts/dashboard-modern.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/intro.min.js')}}"></script> --}}
     <!-- END PAGE LEVEL JS-->
 </body>
