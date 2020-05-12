@@ -1,9 +1,9 @@
-<footer class="page-footer footer footer-static footer-light navbar-border navbar-shadow">
-    <div class="footer-copyright">
-        <div class="container"><span>&copy; 2020 <a
-                    href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-                    target="_blank">PIXINVENT</a> All rights reserved.</span><span
-                class="right hide-on-small-only">Design and Developed by <a
-                    href="https://pixinvent.com/">PIXINVENT</a></span></div>
-    </div>
+<footer class="footer footer-static footer-light">
+    <p class="clearfix mb-0"><span class="float-left d-inline-block">2019 &copy; PIXINVENT</span><span
+            class="float-right d-sm-inline-block d-none">Crafted with<i
+                class="bx bxs-heart pink mx-50 font-small-3"></i>by<a class="text-uppercase"
+                href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a></span>
+        <button class="btn btn-primary btn-icon scroll-top" type="button"><i
+                class="bx bx-up-arrow-alt"></i></button>
+    </p>
 </footer>
