@@ -34,7 +34,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/fontawesome/css/all.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/fonts/fontawesome/css/all.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/fonts/boxicons/css/boxicons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
     <!-- END: Vendor CSS-->
 
@@ -86,8 +87,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     <!-- BEGIN: Customizer-->
-    <div class="customizer d-none d-md-block"><a class="customizer-close" href="#"><i class="fas fa-cog"></i></a><a
-            class="customizer-toggle" href="#"><i class="fas fa-cog"></i></a>
+    <div class="customizer d-none d-md-block"><a class="customizer-close" href="#"><i class="bx bx-x"></i></a><a class="customizer-toggle" href="#"><i class="bx bx-cog bx bx-spin white"></i></a>
         <div class="customizer-content p-2">
             <h4 class="text-uppercase mb-0">Theme Customizer</h4>
             <small>Customize & Preview in Real Time</small>
