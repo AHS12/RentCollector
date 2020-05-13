@@ -37,6 +37,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/fonts/fontawesome/css/all.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/fonts/boxicons/css/boxicons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/ui/prism.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/file-uploaders/dropzone.min.css')}}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -50,10 +52,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/validation/form-validation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/file-uploaders/dropzone.min.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    {{-- <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css"> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <!-- END: Custom CSS-->
 
 </head>
@@ -308,6 +312,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/tables/datatable/vfs_fonts.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/ui/prism.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -321,6 +328,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!-- BEGIN: Page JS-->
     <script src="{{asset('app-assets/js/scripts/datatables/datatable.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/modal/components-modal.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/js/scripts/extensions/dropzone.min.js')}}"></script> --}}
     <!-- END: Page JS-->
 
 </body>

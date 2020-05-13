@@ -1,14 +1,16 @@
 @extends('layouts.master')
 @section('content')
+
+{{-- main tab layout for grid and list view --}}
 <section id="nav-tabs-end">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
+            <div>
+                <div>
                     <h4 class="card-title"><i class="far fa-building"></i> Apertments</h4>
                 </div>
-                <div class="card-content">
-                    <div class="card-body">
+                <div>
+                    <div>
                         <ul class="nav nav-tabs justify-content-end" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab-end" data-toggle="tab" href="#home-align-end"
@@ -16,7 +18,7 @@
                                     <i class="fas fa-th"></i> Grid
                                 </a>
                             </li>
-                            <li class="nav-item current">
+                            <li class="nav-item ">
                                 <a class="nav-link" id="service-tab-end" data-toggle="tab" href="#service-align-end"
                                     aria-controls="service-align-end" role="tab" aria-selected="false">
                                     <i class="fas fa-list"></i> List
@@ -38,7 +40,7 @@
                                                             <div class="card">
                                                                 <div class="card-content">
                                                                     <img class="card-img-top img-fluid"
-                                                                        src="../../../app-assets/images/slider/01.jpg"
+                                                                        src="{{asset('app-assets/images/slider/01.jpg')}}"
                                                                         alt="Card image cap" />
                                                                     <div class="card-body">
                                                                         <h4 class="card-title">Card title</h4>
@@ -57,7 +59,7 @@
                                                             <div class="card">
                                                                 <div class="card-content">
                                                                     <img class="card-img-top img-fluid"
-                                                                        src="../../../app-assets/images/slider/01.jpg"
+                                                                        src="{{asset('app-assets/images/slider/01.jpg')}}"
                                                                         alt="Card image cap" />
                                                                     <div class="card-body">
                                                                         <h4 class="card-title">Card title</h4>
@@ -76,7 +78,7 @@
                                                             <div class="card">
                                                                 <div class="card-content">
                                                                     <img class="card-img-top img-fluid"
-                                                                        src="../../../app-assets/images/slider/04.jpg"
+                                                                        src="{{asset('app-assets/images/slider/04.jpg')}}"
                                                                         alt="Card image cap" />
                                                                     <div class="card-body">
                                                                         <h4 class="card-title">Card title</h4>
@@ -95,7 +97,7 @@
                                                             <div class="card">
                                                                 <div class="card-content">
                                                                     <img class="card-img-top img-fluid"
-                                                                        src="../../../app-assets/images/slider/05.jpg"
+                                                                        src="{{asset('app-assets/images/slider/05.jpg')}}"
                                                                         alt="Card image cap" />
                                                                     <div class="card-body">
                                                                         <h4 class="card-title">Card title</h4>
@@ -113,7 +115,7 @@
                                                             <div class="card">
                                                                 <div class="card-content">
                                                                     <img class="card-img-top img-fluid"
-                                                                        src="../../../app-assets/images/slider/06.jpg"
+                                                                        src="{{asset('app-assets/images/slider/06.jpg')}}"
                                                                         alt="Card image cap" />
                                                                     <div class="card-body">
                                                                         <h4 class="card-title">Card title</h4>
@@ -413,5 +415,198 @@
         </div>
     </div>
 </section>
+
+{{-- floating action button --}}
+<button type="button" onclick="openModal()" data-toggle="tooltip" data-placement="top" title=""
+    data-original-title="Add Apertments" class="btn btn-info chat-demo-button btn-circle btn-xl"><i
+        class="fas fa-plus"></i></button>
+
+{{-- Apertment Add Modal --}}
+
+
+
+<div class="modal fade text-left w-100" id="xlarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel16">Add Apertment</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Apertment Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Apertment Name"
+                                        required data-validation-required-message="This name field is required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Address</label>
+                                    <input type="text" name="address" class="form-control"
+                                        placeholder="Apertment Address" required
+                                        data-validation-required-message="This Address field is required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Concern Person Name</label>
+                                    <input type="text" name="concern_person" class="form-control"
+                                        placeholder="Concern Person Name" required
+                                        data-validation-required-message="The Concern Person Name field is required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Concern Person Phone</label>
+                                    <input type="tel" pattern="^\d{11}$" minlength="11" maxlength="11" name="concern_phone" class="form-control"
+                                        placeholder="Concern Person Phone" required
+                                        data-validation-required-message="The Concern Person Phone field is required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Concern Person Email</label>
+                                    <input type="email" name="concern_email" class="form-control"
+                                        placeholder="Concern Person Email" required
+                                        data-validation-required-message="The Concern Person Email field is required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <div class="controls">
+                                    <label for="first-name-vertical">Concern Person NID/Birth Certificate No/Passport
+                                        No</label>
+                                    <input type="number" min="0" pattern="^\d*" name="concern_nid_birth" class="form-control"
+                                        placeholder="Concern Person NID/Birth Certificate No/Passport No" required
+                                        data-validation-required-message="This field is required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" id="fileholder">
+                            <div class="form-group">
+
+                                <div class="controls" id="attachment-div">
+                                    <label for="first-name-vertical">Concern Person Documents</label>
+                                    <input type="file" name="attachment[]" id="attachment" class="form-control" required
+                                        data-validation-required-message="This Documnet field is required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="button" onclick="addAttachment()" class="btn btn-info  btn-circle"><i
+                                    class="bx bx-plus"></i></button>
+                            <button type="button" onclick="removeAttachment()" class="btn btn-danger btn-circle"><i
+                                    class="bx bx-minus"></i></button>
+                        </div>
+
+
+
+
+                    </div>
+                    {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                    <i class="bx bx-x d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">Close</span>
+                </button>
+                <button type="submit" class="btn btn-primary ml-1">
+                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">Save</span>
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    var counter = 1;
+    /**
+     * @name initValidation
+     * @description initiate jquery boostrap validation to new form elements.
+     * @parameter
+     * @return 
+     */
+    function initValidation(){
+        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+
+    }
+    /**
+     * @name openModal
+     * @description open modal from button click.
+     * @parameter
+     * @return 
+     */
+    function openModal() {
+        $("#xlarge").modal('show');
+    }
+
+    /**
+     * @name addAttachment
+     * @description add a file input row in the form
+     * @parameter
+     * @return 
+     */
+    function addAttachment() {
+        var markup = "";
+        markup += '<div class="form-group">';
+        markup += '<div class="controls" id="attachment-div' + counter + '">';
+        markup += '<label for="first-name-vertical">Concern Person Documents</label>';
+        markup += '<input type="file" name="attachment[]" id="attachment' + counter +
+            '" class="form-control" required data-validation-required-message="This Documnet field is required">';
+        markup += '</div>';
+        markup += '</div>';
+        //markup += '<div class="help-block"></div>';
+        counter++;
+        $("#fileholder").append(markup);
+
+        initValidation();
+
+
+    }
+
+    /**
+     * @name removeAttachment
+     * @description remove file input row from the form
+     * @parameter
+     * @return 
+     */
+    function removeAttachment() {
+        counter--;
+        $("#attachment-div" + counter).remove();
+    }
+
+</script>
 
 @endsection
