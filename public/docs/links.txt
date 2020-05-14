@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/11536271/validate-dynamically-added-input-fields
+https://stackoverflow.com/questions/24670447/how-to-validate-array-of-inputs-using-validate-plugin-jquery

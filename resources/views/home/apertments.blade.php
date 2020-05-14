@@ -423,11 +423,9 @@
 
 {{-- Apertment Add Modal --}}
 
-
-
 <div class="modal fade text-left w-100" id="xlarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel16">Add Apertment</h4>
@@ -443,7 +441,7 @@
 
                                 <div class="controls">
                                     <label for="first-name-vertical">Apertment Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Apertment Name"
+                                    <input type="text" name="name" minlength="3" class="form-control" placeholder="Apertment Name"
                                         required>
                                 </div>
                             </div>
@@ -454,7 +452,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Address</label>
                                     <input type="text" name="address" class="form-control"
-                                        placeholder="Apertment Address" required>
+                                        placeholder="Apertment Address" minlength="5" required>
                                 </div>
                             </div>
                         </div>
@@ -465,7 +463,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Concern Person Name</label>
                                     <input type="text" name="concern_person" class="form-control"
-                                        placeholder="Concern Person Name" required>
+                                        placeholder="Concern Person Name" minlength="3" required>
                                 </div>
                             </div>
                         </div>
@@ -497,10 +495,10 @@
                             <div class="form-group">
 
                                 <div class="controls">
-                                    <label for="first-name-vertical">Concern Person NID/Birth Certificate No/Passport
+                                    <label for="first-name-vertical">Concern Person NID/Birth Certificate/Passport
                                         No</label>
                                     <input type="number" min="0" pattern="^\d*" name="concern_nid_birth"
-                                        class="form-control"
+                                        class="form-control" minlength="9"
                                         placeholder="Concern Person NID/Birth Certificate No/Passport No" required>
                                 </div>
                             </div>
@@ -543,30 +541,25 @@
         </div>
     </div>
 </div>
+{{-- <div>
+    <div class="alert alert-danger mb-2" role="alert">
+        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
+    </div>
+    <div class="alert alert-danger mb-2" role="alert">
+        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
+    </div>
+    <div class="alert alert-danger mb-2" role="alert">
+        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
+    </div>
+</div> --}}
 
 
 <script>
     $(document).ready(function () {
-        // $('#apertmentInsertForm').on('submit', function (event) {
 
-        //     // adding rules for inputs with class 'fileInput'
-        //     $('input.fileInput').each(function () {
-        //         $(this).rules("add", {
-        //             required: true
-        //         })
-        //     });
-
-        //     // prevent default submit action         
-        //     event.preventDefault();
-
-        //     // test if form is valid 
-        //     if ($('#apertmentInsertForm').validate().form()) {
-        //         console.log("validates");
-        //     } else {
-        //         console.log("does not validate");
-        //     }
-        // });
+        //initialize current form validations
         initValidation();
+
 
     });
     //start global vairable
@@ -575,19 +568,18 @@
     var rules = {};
     var messages = {};
     var counter = 1;
-    var row = 1;
+    //var row = 1;
     //end global variable
 
-    
 
+    /**
+     * @name form onsubmit
+     * @description override the default form submission and submit the form manually.
+     *              also validate with .validate() method from jquery validation
+     * @parameter formid
+     * @return 
+     */
 
-
-    // $("#apertmentInsertForm").submit(function () {
-    //     event.preventDefault();
-
-    //     
-    //     // alert('submitted');
-    // });
 
     $('#apertmentInsertForm').submit(function (e) {
         e.preventDefault();
@@ -605,26 +597,112 @@
         },
         errorClass: 'help-block',
         submitHandler: function (form) {
-            console.log(form);
+            //console.log(form);
             swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel plx!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    swal("Success!", "validation success.", "success");
-                } else {
-                    swal("Cancelled", "Your imaginary file is safe :)", "error");
-                }
-            });
-            console.log("validation success");
+                    title: "Are you sure to submit?",
+                    text: "Your data will be inserted!",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-info",
+                    cancelButtonClass: "btn-warning",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    showLoaderOnConfirm: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#xlarge").modal('hide');
+                        var formData = new FormData(form);
+                        $.ajax({
+                            url: "{{ url('apertment/insert') }}",
+                            method: "POST",
+                            data: formData,
+                            enctype: 'multipart/form-data',
+                            processData: false,
+                            cache: false,
+                            contentType: false,
+                            timeout: 600000,
+                            success: function (result) {
+                                if (typeof result.errors !== 'undefined') {
+                                    // the variable is defined
+                                    swal.close()
+                                    var html = '';
+                                    var htmlDiv = '';
+                                    //console.log(result.errors);
+                                    $.each(result.errors, function (index, val) {
+                                        //console.log(index, val)
+                                        $.each(val, function (index, val) {
+                                            //console.log(index, val)
+                                            html +='<li class="list-group-item text-danger"><i class="bx bx-error"></i> '+val+'</li>';
+                                        });
+                                    });
+                                    
+            
+                                    htmlDiv += '<ul class="list-group border-danger">';
+                                    htmlDiv +=  html
+                                    htmlDiv += '</ul>';
+                                    
+                                   
+                                    // html += '<div class="alert border-danger mb-2" role="alert">';
+                                    // html +='<i class="bx bx-error"></i> Good Morning! Start your day with some alerts.';
+                                    // html += '</div>';
+                                    Swal.fire({
+                                        title: '<strong>Error!</strong>',
+                                        icon: 'error',
+                                        html: htmlDiv,
+                                        showCloseButton: true,
+                                        confirmButtonText: 'Close!',
+                                    })
+
+
+                                } else if (typeof result.dbErrors !== 'undefined') {
+                                    swal("Error!", "Database Error!Please Try Again later!",
+                                        "warning");
+                                } else {
+                                    $(form).trigger('reset');
+                                    swal(result, "Data inserted Successfully.", "success");
+                                }
+
+                            },
+                            error: function (jqXHR, exception) {
+                                var msg = '';
+                                if (jqXHR.status === 0) {
+                                    msg = 'Not connect.Verify Network.';
+                                    swal("Error!", msg, "warning");
+                                } else if (jqXHR.status == 404) {
+                                    msg = 'Requested page not found. [404]';
+                                    swal("Error!", msg, "warning");
+                                } else if (jqXHR.status == 413) {
+                                    msg = 'Request entity too large. [413]';
+                                    swal("Error!", msg, "warning");
+                                } else if (jqXHR.status == 500) {
+                                    msg = 'Internal Server Error [500].';
+                                    swal("Error!", msg, "warning");
+                                } else if (exception === 'parsererror') {
+                                    msg = 'Requested JSON parse failed.';
+                                    swal("Error!", msg, "warning");
+                                } else if (exception === 'timeout') {
+                                    msg = 'Time out error.';
+                                    swal("Error!", msg, "warning");
+                                } else if (exception === 'abort') {
+                                    msg = 'Ajax request aborted.';
+                                    swal("Error!", msg, "warning");
+                                } else {
+                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                    swal("Error!", msg, "warning");
+                                }
+
+                            }
+                        });
+
+
+                    } else {
+                        swal("Cancelled", "Your canceled this operation", "warning");
+                    }
+                });
+            //console.log("validation success");
         }
     });
 
@@ -632,14 +710,13 @@
 
     /**
      * @name initValidation
-     * @description initiate jquery validation to new form elements.
+     * @description initiate jquery validation for new form elements.
      * @parameter
      * @return 
      */
     function initValidation() {
         // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
 
-        
 
         //get input, select, textarea of form
         $('#apertmentInsertForm').find('input, select, textarea').each(function () {
@@ -659,10 +736,10 @@
                 //add other rules & messages
             }
 
-            
+
         });
 
-        console.log(rules);
+        //console.log(rules);
 
 
     }
@@ -685,18 +762,18 @@
      * @return 
      */
     function addAttachment() {
-        
+
         var markup = "";
         markup += '<div class="form-group">';
         markup += '<div class="controls" id="attachment-div' + counter + '">';
         markup += '<label for="first-name-vertical">Concern Person Documents</label>';
-        markup += '<input type="file" name="attachment['+counter+']" id="attachment' + counter +
+        markup += '<input type="file" name="attachment[' + counter + ']" id="attachment' + counter +
             '" class="form-control fileInput" required>';
         markup += '</div>';
         markup += '</div>';
         //markup += '<div class="help-block"></div>';
         counter++;
-        row++;
+        //row++;
         $("#fileholder").append(markup);
 
         //initValidation("#apertmentInsertForm");

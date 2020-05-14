@@ -20,12 +20,13 @@ class Shops extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->text('address');
-            $table->text('picture_path')->nullable();
+           // $table->text('picture_path')->nullable();
             $table->string('conecrn_person');
-            $table->string('conecrn_phone_no');
+            $table->string('conecrn_email');
+            $table->string('conecrn_phone');
             $table->string('conecrn_nid_birth_passport');
-            $table->string('conecrn_picture_path')->nullable();
-            $table->string('conecrn_document_picture_path')->nullable();
+           // $table->string('conecrn_picture_path')->nullable();
+            //$table->string('conecrn_document_picture_path')->nullable();
             $table->integer('status')->default(0);
             $table->string('created_by');
             $table->string('updated_by');
