@@ -69,7 +69,7 @@ class ApertmentController extends Controller
                 'conecrn_person'            => 'required|min:3',
                 'conecrn_email'             => 'required|unique:apertments|email',
                 'conecrn_phone'             => 'required|unique:apertments|numeric|digits:11',
-                'conecrn_nid_birth_passport' => 'required|numeric|digits:9',
+                'conecrn_nid_birth_passport' => 'required|unique:apertments|min:9',
 
             ],
             [
@@ -77,6 +77,7 @@ class ApertmentController extends Controller
                 'conecrn_phone.max' => 'Concern Phone must be 11 digit.',
                 'conecrn_nid_birth_passport.required' => 'Please Enter Valid NID/BIRTH CERTIFICATE/PASSPORT No!',
                 'conecrn_nid_birth_passport.min' => 'NID/BIRTH CERTIFICATE/PASSPORT No must be atleast 9 digit!',
+                'conecrn_nid_birth_passport.unique' => 'NID/BIRTH CERTIFICATE/PASSPORT No has already been taken.',
             ]
         );
 
