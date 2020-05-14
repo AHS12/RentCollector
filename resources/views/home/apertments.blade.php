@@ -436,7 +436,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" novalidate>
+                <form class="form-horizontal" id="apertmentInsertForm">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -444,7 +444,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Apertment Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Apertment Name"
-                                        required data-validation-required-message="This name field is required">
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -454,8 +454,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Address</label>
                                     <input type="text" name="address" class="form-control"
-                                        placeholder="Apertment Address" required
-                                        data-validation-required-message="This Address field is required">
+                                        placeholder="Apertment Address" required>
                                 </div>
                             </div>
                         </div>
@@ -466,8 +465,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Concern Person Name</label>
                                     <input type="text" name="concern_person" class="form-control"
-                                        placeholder="Concern Person Name" required
-                                        data-validation-required-message="The Concern Person Name field is required">
+                                        placeholder="Concern Person Name" required>
                                 </div>
                             </div>
                         </div>
@@ -477,9 +475,9 @@
 
                                 <div class="controls">
                                     <label for="first-name-vertical">Concern Person Phone</label>
-                                    <input type="tel" pattern="^\d{11}$" minlength="11" maxlength="11" name="concern_phone" class="form-control"
-                                        placeholder="Concern Person Phone" required
-                                        data-validation-required-message="The Concern Person Phone field is required">
+                                    <input type="number" pattern="^\d{11}$" minlength="11" maxlength="11"
+                                        name="concern_phone" id="concern_phone" class="form-control"
+                                        placeholder="Concern Person Phone" required>
                                 </div>
                             </div>
                         </div>
@@ -490,8 +488,7 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Concern Person Email</label>
                                     <input type="email" name="concern_email" class="form-control"
-                                        placeholder="Concern Person Email" required
-                                        data-validation-required-message="The Concern Person Email field is required">
+                                        placeholder="Concern Person Email" required>
                                 </div>
                             </div>
                         </div>
@@ -502,9 +499,9 @@
                                 <div class="controls">
                                     <label for="first-name-vertical">Concern Person NID/Birth Certificate No/Passport
                                         No</label>
-                                    <input type="number" min="0" pattern="^\d*" name="concern_nid_birth" class="form-control"
-                                        placeholder="Concern Person NID/Birth Certificate No/Passport No" required
-                                        data-validation-required-message="This field is required">
+                                    <input type="number" min="0" pattern="^\d*" name="concern_nid_birth"
+                                        class="form-control"
+                                        placeholder="Concern Person NID/Birth Certificate No/Passport No" required>
                                 </div>
                             </div>
                         </div>
@@ -513,8 +510,8 @@
 
                                 <div class="controls" id="attachment-div">
                                     <label for="first-name-vertical">Concern Person Documents</label>
-                                    <input type="file" name="attachment[]" id="attachment" class="form-control" required
-                                        data-validation-required-message="This Documnet field is required">
+                                    <input type="file" name="attachment[0]" id="attachment"
+                                        class="form-control fileInput" required>
                                 </div>
                             </div>
                         </div>
@@ -549,19 +546,128 @@
 
 
 <script>
+    $(document).ready(function () {
+        // $('#apertmentInsertForm').on('submit', function (event) {
 
+        //     // adding rules for inputs with class 'fileInput'
+        //     $('input.fileInput').each(function () {
+        //         $(this).rules("add", {
+        //             required: true
+        //         })
+        //     });
 
+        //     // prevent default submit action         
+        //     event.preventDefault();
+
+        //     // test if form is valid 
+        //     if ($('#apertmentInsertForm').validate().form()) {
+        //         console.log("validates");
+        //     } else {
+        //         console.log("does not validate");
+        //     }
+        // });
+        initValidation();
+
+    });
+    //start global vairable
+
+    //set global rules & messages array to use in validator
+    var rules = {};
+    var messages = {};
     var counter = 1;
+    var row = 1;
+    //end global variable
+
+    
+
+
+
+    // $("#apertmentInsertForm").submit(function () {
+    //     event.preventDefault();
+
+    //     
+    //     // alert('submitted');
+    // });
+
+    $('#apertmentInsertForm').submit(function (e) {
+        e.preventDefault();
+    }).validate({
+        rules: rules,
+        // messages: messages,
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+            $(element).addClass('select-class');
+
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            $(element).removeClass('select-class');
+        },
+        errorClass: 'help-block',
+        submitHandler: function (form) {
+            console.log(form);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal("Success!", "validation success.", "success");
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+            console.log("validation success");
+        }
+    });
+
+
+
     /**
      * @name initValidation
-     * @description initiate jquery boostrap validation to new form elements.
+     * @description initiate jquery validation to new form elements.
      * @parameter
      * @return 
      */
-    function initValidation(){
-        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+    function initValidation() {
+        // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+
+        
+
+        //get input, select, textarea of form
+        $('#apertmentInsertForm').find('input, select, textarea').each(function () {
+            var name = $(this).attr('name');
+            rules[name] = {};
+            messages[name] = {};
+
+            rules[name] = {
+                required: true
+            }; // set required true against every name
+            //apply more rules, you can also apply custom rules & messages
+            if (name === "concern_email") {
+                rules[name].email = true;
+                //messages[name].email = "Please provide valid email";
+            } else if (name === 'url') {
+                rules[name].required = false; // url filed is not required
+                //add other rules & messages
+            }
+
+            
+        });
+
+        console.log(rules);
+
 
     }
+
+
     /**
      * @name openModal
      * @description open modal from button click.
@@ -579,18 +685,21 @@
      * @return 
      */
     function addAttachment() {
+        
         var markup = "";
         markup += '<div class="form-group">';
         markup += '<div class="controls" id="attachment-div' + counter + '">';
         markup += '<label for="first-name-vertical">Concern Person Documents</label>';
-        markup += '<input type="file" name="attachment[]" id="attachment' + counter +
-            '" class="form-control" required data-validation-required-message="This Documnet field is required">';
+        markup += '<input type="file" name="attachment['+counter+']" id="attachment' + counter +
+            '" class="form-control fileInput" required>';
         markup += '</div>';
         markup += '</div>';
         //markup += '<div class="help-block"></div>';
         counter++;
+        row++;
         $("#fileholder").append(markup);
 
+        //initValidation("#apertmentInsertForm");
         initValidation();
 
 

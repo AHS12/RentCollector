@@ -52,14 +52,21 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/validation/form-validation.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/validation/form-validation.css')}}"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/file-uploaders/dropzone.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('packages/bootstrap-sweetalert/dist/sweetalert.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('packages/sweetalert2/dist/theme-bootstrap-4/bootstrap-4.min.css')}}"> --}}
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <!-- END: Custom CSS-->
 
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script>
+    <script src="{{asset('packages/jquery-validation/dist/jquery.validate.js')}}"></script>
+    <!-- BEGIN Vendor JS-->
 </head>
 <!-- END: Head-->
 
@@ -297,7 +304,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script> --}}
     <script src="{{asset('app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js')}}"></script>
     <script src="{{asset('app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.min.js')}}"></script>
     <script src="{{asset('app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js')}}"></script>
@@ -315,6 +322,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/ui/prism.min.js')}}"></script>
+    <script src="{{asset('packages/bootstrap-sweetalert/dist/sweetalert.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -329,7 +338,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Page JS-->
     <script src="{{asset('app-assets/js/scripts/datatables/datatable.min.js')}}"></script>
     <script src="{{asset('app-assets/js/scripts/modal/components-modal.min.js')}}"></script>
-    <script src="{{asset('app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/js/scripts/forms/validation/form-validation.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/extensions/dropzone.min.js')}}"></script> --}}
     <!-- END: Page JS-->
 

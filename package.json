@@ -24,6 +24,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
-        "boxicons": "^2.0.5"
+        "@sweetalert2/theme-bootstrap-4": "^3.1.4",
+        "bootstrap-sweetalert": "^1.0.1",
+        "boxicons": "^2.0.5",
+        "sweetalert2": "^9.10.13"
     }
 }

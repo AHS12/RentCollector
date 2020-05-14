@@ -25,3 +25,16 @@
     line-height: 1.33;
     border-radius: 35px;
 }
+
+.help-block {
+    color: red;
+}
+
+.select-class{
+    border: solid 1px red;
+
+}
+
+/* .error {
+    color: red;
+} */
