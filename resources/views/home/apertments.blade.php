@@ -10,7 +10,7 @@
                     <h4 class="card-title"><i class="far fa-building"></i> Apertments</h4>
                 </div>
                 <div>
-                    <div id="gridDiv">
+                    <div >
                         <ul class="nav nav-tabs justify-content-end" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab-end" data-toggle="tab" href="#home-align-end"
@@ -394,7 +394,7 @@
                                 } else {
                                     $(form).trigger('reset');
                                     $("#tableDiv").load(location.href + " #tableDiv");
-                                    $("#gridDiv").load(location.href + " #gridDiv");
+                                    $("#home-align-end").load(location.href + " #home-align-end");
                                     swal(result, "Data inserted Successfully.", "success");
                                 }
 
@@ -532,7 +532,7 @@
                                     "warning");
                             } else {
                                 $("#tableDiv").load(location.href + " #tableDiv");
-                                $("#gridDiv").load(location.href + " #gridDiv");
+                                $("#home-align-end").load(location.href + " #home-align-end");
                                 swal(result, "Deleted Successfully.", "success");
                             }
 
