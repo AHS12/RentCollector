@@ -10,7 +10,7 @@
                     <h4 class="card-title"><i class="far fa-building"></i> Apertments</h4>
                 </div>
                 <div>
-                    <div>
+                    <div id="gridDiv">
                         <ul class="nav nav-tabs justify-content-end" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab-end" data-toggle="tab" href="#home-align-end"
@@ -29,112 +29,49 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="home-align-end" aria-labelledby="home-tab-end"
                                 role="tabpanel">
-                                <section id="decks">
+                                <div class="row">
+                                    @foreach ($apertments as $apertment)
+                                    <div class="col-xl-2 col-md-4 col-sm-6">
+                                        <div class="card text-center">
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <div
+                                                        class="badge-circle badge-circle-lg badge-circle-light-info mx-auto my-1">
+                                                        <i class="bx bx-home font-medium-5"></i>
+                                                    </div>
+                                                    <h4 class="text-muted mb-0 line-ellipsis">{{$apertment->name}}</h4>
+                                                    <p class="text-muted mb-0 line-ellipsis">{{$apertment->address}}</p>
 
-                                    <div class="row match-height">
-                                        <div class="col-12">
-                                            <div class="card-deck-wrapper">
-                                                <div class="card-deck">
-                                                    <div class="row no-gutters">
-                                                        <div class="col-md-3 col-sm-6 mb-sm-1">
-                                                            <div class="card">
-                                                                <div class="card-content">
-                                                                    <img class="card-img-top img-fluid"
-                                                                        src="{{asset('app-assets/images/slider/01.jpg')}}"
-                                                                        alt="Card image cap" />
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">Card title</h4>
-                                                                        <p class="card-text">
-                                                                            This card has supporting text below as a
-                                                                            natural lead-in to
-                                                                            additional content.
-                                                                        </p>
-                                                                        <small class="text-muted">Last updated 3 mins
-                                                                            ago</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-6 mb-sm-1">
-                                                            <div class="card">
-                                                                <div class="card-content">
-                                                                    <img class="card-img-top img-fluid"
-                                                                        src="{{asset('app-assets/images/slider/01.jpg')}}"
-                                                                        alt="Card image cap" />
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">Card title</h4>
-                                                                        <p class="card-text">
-                                                                            This card has supporting text below as a
-                                                                            natural lead-in to
-                                                                            additional content.
-                                                                        </p>
-                                                                        <small class="text-muted">Last updated 3 mins
-                                                                            ago</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-6 mb-sm-1">
-                                                            <div class="card">
-                                                                <div class="card-content">
-                                                                    <img class="card-img-top img-fluid"
-                                                                        src="{{asset('app-assets/images/slider/04.jpg')}}"
-                                                                        alt="Card image cap" />
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">Card title</h4>
-                                                                        <p class="card-text">
-                                                                            This card has supporting text below as a
-                                                                            natural lead-in to
-                                                                            additional content.
-                                                                        </p>
-                                                                        <small class="text-muted">Last updated 3 mins
-                                                                            ago</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-6">
-                                                            <div class="card">
-                                                                <div class="card-content">
-                                                                    <img class="card-img-top img-fluid"
-                                                                        src="{{asset('app-assets/images/slider/05.jpg')}}"
-                                                                        alt="Card image cap" />
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">Card title</h4>
-                                                                        <p class="card-text">
-                                                                            This card has supporting text below as a
-                                                                            natural lead-in to
-                                                                            additional content.</p>
-                                                                        <small class="text-muted">Last updated 3 mins
-                                                                            ago</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-6">
-                                                            <div class="card">
-                                                                <div class="card-content">
-                                                                    <img class="card-img-top img-fluid"
-                                                                        src="{{asset('app-assets/images/slider/06.jpg')}}"
-                                                                        alt="Card image cap" />
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">Card title</h4>
-                                                                        <p class="card-text">
-                                                                            This card has supporting text below as a
-                                                                            natural lead-in to
-                                                                            additional content.</p>
-                                                                        <small class="text-muted">Last updated 3 mins
-                                                                            ago</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <div class="btn-group dropup dropdown-icon-wrapper mr-1 mb-1">
+
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i
+                                                            class="bx bx-dots-vertical-rounded font-medium-3 cursor-pointer"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" x-placement="right-start"
+                                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(132px, 0px, 0px);">
+                                                        <span class="dropdown-item" data-toggle="tooltip"
+                                                            data-placement="top" title="" data-original-title="Edit" onclick="editApertment('{{encrypt($apertment->id)}}')">
+                                                            <i class="bx bx-edit"></i>
+                                                        </span>
+                                                        <span class="dropdown-item" data-toggle="tooltip"
+                                                            data-placement="top" title="" data-original-title="Delete" onclick="deleteApertment('{{encrypt($apertment->id)}}')">
+                                                            <i class="bx bx-trash"></i>
+                                                        </span>
+
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                </section>
+                                    @endforeach
+
+                                </div>
+
                             </div>
                             <div class="tab-pane" id="service-align-end" aria-labelledby="service-tab-end"
                                 role="tabpanel">
@@ -161,18 +98,21 @@
                                                                     <td>{{$apertment->name}}</td>
                                                                     <td>{{$apertment->address}}</td>
                                                                     <td>{{$apertment->conecrn_person}}</td>
-                                                                    <td>{{$apertment->conecrn_email}}</td>
                                                                     <td>{{$apertment->conecrn_phone}}</td>
+                                                                    <td>{{$apertment->conecrn_email}}</td>
+
                                                                     <td>
                                                                         <button
                                                                             class="btn btn-outline-dark round mr-1 mb-1 btn-xs"
                                                                             data-toggle="tooltip" data-placement="top"
-                                                                            title="" data-original-title="Edit" onclick="editApertment('{{encrypt($apertment->id)}}')"><i
+                                                                            title="" data-original-title="Edit"
+                                                                            onclick="editApertment('{{encrypt($apertment->id)}}')"><i
                                                                                 class='bx bx-edit'></i></button>
                                                                         <button
                                                                             class="btn btn-outline-dark round mr-1 mb-1 btn-xs"
                                                                             data-toggle="tooltip" data-placement="top"
-                                                                            title="" data-original-title="Delete" onclick="deleteApertment('{{encrypt($apertment->id)}}')"><i
+                                                                            title="" data-original-title="Delete"
+                                                                            onclick="deleteApertment('{{encrypt($apertment->id)}}')"><i
                                                                                 class='bx bx-trash'></i></button>
                                                                     </td>
                                                                 </tr>
@@ -206,7 +146,7 @@
 </section>
 
 {{-- floating action button --}}
-<button type="button" onclick="openModal()" data-toggle="tooltip" data-placement="top" title=""
+<button type="button" onclick="openModal('xlarge')" data-toggle="tooltip" data-placement="top" title=""
     data-original-title="Add Apertments" class="btn btn-info chat-demo-button btn-circle btn-xl"><i
         class="fas fa-plus"></i></button>
 
@@ -454,6 +394,7 @@
                                 } else {
                                     $(form).trigger('reset');
                                     $("#tableDiv").load(location.href + " #tableDiv");
+                                    $("#gridDiv").load(location.href + " #gridDiv");
                                     swal(result, "Data inserted Successfully.", "success");
                                 }
 
@@ -543,8 +484,8 @@
      * @parameter
      * @return 
      */
-    function openModal() {
-        $("#xlarge").modal('show');
+    function openModal(id) {
+        $("#" + id).modal('show');
     }
 
     /**
@@ -553,7 +494,7 @@
      * @parameter
      * @return 
      */
-    function editApertment(id){
+    function editApertment(id) {
 
     }
 
@@ -563,74 +504,75 @@
      * @parameter apertment id
      * @return json response
      */
-    function deleteApertment(id){
+    function deleteApertment(id) {
         swal({
-                    title: "Are you sure to Delete This?",
-                    text: "You will not be able to recover this!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-danger",
-                    cancelButtonClass: "btn-secondary",
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "No",
-                    closeOnConfirm: false,
-                    closeOnCancel: false,
-                    showLoaderOnConfirm: true
-                },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            url: "{{ url('apertment/delete') }}",
-                            method: "POST",
-                            data: {
-                                id:id
-                            },
-                            success: function (result) {
-                                 if (typeof result.errors !== 'undefined') {
-                                    swal("Error!", "Database Error!Please Try Again later!",
-                                        "warning");
-                                } else {
-                                    $("#tableDiv").load(location.href + " #tableDiv");
-                                    swal(result, "Deleted Successfully.", "success");
-                                }
-
-                            },
-                            error: function (jqXHR, exception) {
-                                var msg = '';
-                                if (jqXHR.status === 0) {
-                                    msg = 'Not connect.Verify Network.';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 404) {
-                                    msg = 'Requested page not found. [404]';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 413) {
-                                    msg = 'Request entity too large. [413]';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 500) {
-                                    msg = 'Internal Server Error [500].';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'parsererror') {
-                                    msg = 'Requested JSON parse failed.';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'timeout') {
-                                    msg = 'Time out error.';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'abort') {
-                                    msg = 'Ajax request aborted.';
-                                    swal("Error!", msg, "warning");
-                                } else {
-                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                                    swal("Error!", msg, "warning");
-                                }
-
+                title: "Are you sure to Delete This?",
+                text: "You will not be able to recover this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "{{ url('apertment/delete') }}",
+                        method: "POST",
+                        data: {
+                            id: id
+                        },
+                        success: function (result) {
+                            if (typeof result.errors !== 'undefined') {
+                                swal("Error!", "Database Error!Please Try Again later!",
+                                    "warning");
+                            } else {
+                                $("#tableDiv").load(location.href + " #tableDiv");
+                                $("#gridDiv").load(location.href + " #gridDiv");
+                                swal(result, "Deleted Successfully.", "success");
                             }
-                        });
+
+                        },
+                        error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.Verify Network.';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 413) {
+                                msg = 'Request entity too large. [413]';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                                swal("Error!", msg, "warning");
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                swal("Error!", msg, "warning");
+                            }
+
+                        }
+                    });
 
 
-                    } else {
-                        swal("Cancelled", "Your canceled this operation", "warning");
-                    }
-                });
+                } else {
+                    swal("Cancelled", "Your canceled this operation", "warning");
+                }
+            });
     }
 
     /**
