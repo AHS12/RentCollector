@@ -22,7 +22,12 @@ class ApertmentController extends Controller
      */
     public function apertmentView()
     {
-        return view('home.apertments');
+        $userId = Auth::user()->id;
+        $apertments = ApertmentModel::where('soft_delete', 0)->where('user_id', $userId)->with('attachments')->get();
+        $data = [
+            'apertments' => $apertments
+        ];
+        return view('home.apertments', $data);
     }
 
 
@@ -120,6 +125,33 @@ class ApertmentController extends Controller
                 DB::rollback();
                 return response()->json(array('dbErrors' => $exception->getMessage()));
             }
+        }
+    }
+
+    /**
+     * @name apertmentDeleteAjax
+     * @role soft delete Apertment and associate record from the database
+     * @param Request from array
+     * @return json response
+     *
+     */
+    public function apertmentDeleteAjax(Request $request)
+    {
+        $id = decrypt($request->id);
+        $apertment = ApertmentModel::findOrFail($id);
+        DB::beginTransaction();
+        try {
+
+
+            $apertment->update(['soft_delete' => 1]);
+            AttachmentModel::where('aprt_id', $id)->update(['soft_delete' => 1]);
+
+
+            DB::commit();
+            return response()->json("Success");
+        } catch (\Exception $exception) {
+            DB::rollback();
+            return response()->json(array('errors' => $exception->getMessage()));
         }
     }
 }
