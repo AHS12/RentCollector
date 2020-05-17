@@ -3,7 +3,7 @@
 //view Route
 Route::group(['middleware' => 'auth'], function () {
    Route::get('apertments','home\ApertmentController@apertmentView');
-   Route::get('apertment/details','home\ApertmentController@apertmentDetailsView');
+   Route::get('apertment/details/{id}','home\ApertmentController@apertmentDetailsView');
 });
 
 //internal Route

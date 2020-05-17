@@ -27,7 +27,7 @@
                         class="far fa-building"></i><span class="menu-title"
                         data-i18n="Dashboard">Home/Apertment</span></a>
                 <ul class="menu-content">
-                    <li class=" @if (Route::getCurrentRoute()->uri() == "apertments") active @endif "><a href="
+                    <li class=" @if (Route::getCurrentRoute()->uri() == "apertments"||Route::getCurrentRoute()->uri() == "apertment/details/{id}") active @endif "><a href="
                         {{URL('apertments')}}"><i class="fas fa-arrow-right"></i><span class="menu-item"
                             data-i18n="eCommerce">Apertments</span></a>
                     </li>

@@ -30,7 +30,7 @@
     color: red;
 }
 
-.select-class{
+.select-class {
     border: solid 1px red;
 
 }
@@ -38,3 +38,27 @@
 /* .error {
     color: red;
 } */
+
+
+/* image modal */
+
+
+
+
+.modal,
+body.modal-open {
+    padding-right: 0 !important
+}
+
+body.modal-open {
+    overflow: auto
+}
+
+body.scrollable {
+    overflow-y: auto
+}
+
+
+
+
+/* end image modal */

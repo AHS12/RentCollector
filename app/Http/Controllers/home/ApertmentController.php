@@ -30,6 +30,31 @@ class ApertmentController extends Controller
         return view('home.apertments', $data);
     }
 
+
+
+    public function apertmentDetailsView(Request $request){
+        $id = $request->id;
+        $userId = Auth::user()->id;
+        if (ApertmentModel::where('soft_delete', 0)->where('id', $id)->exists()) {
+
+            $apertment = ApertmentModel::where('soft_delete', 0)->where('id', $id)->with(['user','attachments' => function ($q) {
+                $q->where('soft_delete', 0);
+            }])->first();
+            if ($userId == $apertment->user_id) {
+                $data = [
+                    'apertment' => $apertment
+                ];
+                return view('home.apertmentDetails',$data);
+            } else {
+                abort(401);
+            }
+            
+        } else {
+            abort(404);
+        }
+        
+    }
+
     /**
      * @name getApertmentDetails
      * @role fetch Apertment record from the database

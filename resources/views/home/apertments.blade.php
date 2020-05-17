@@ -34,7 +34,8 @@
                                     <div class="col-xl-3 col-md-4 col-sm-6">
                                         <div class="card text-center">
                                             <div class="card-content">
-                                                <div class="card-body">
+                                                <div class="card-body"
+                                                    onclick="apertmentDetails({{$apertment->id}})">
                                                     <div
                                                         class="badge-circle badge-circle-lg badge-circle-light-info mx-auto my-1">
                                                         <i class="bx bx-home font-medium-5"></i>
@@ -91,7 +92,7 @@
                                                             <tbody>
                                                                 @foreach ($apertments as $apertment)
                                                                 <tr>
-                                                                    <td>{{$apertment->name}}</td>
+                                                                    <td  onclick="apertmentDetails({{$apertment->id}})">{{$apertment->name}}</td>
                                                                     <td>{{$apertment->address}}</td>
                                                                     <td>{{$apertment->conecrn_person}}</td>
                                                                     <td>{{$apertment->conecrn_phone}}</td>
@@ -374,28 +375,28 @@
 
                         <hr>
                         <div class="col-12">
-                            
 
-                                <div id="attachment-div_update">
-                                   <h4>Current Documents</h4>
-                                    <div class="">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>PREVIEW</th>
-                                                    <th>NAME</th>
-                                                    <th>ACTION</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody id="attachment-update-holder">
-                                                
+                            <div id="attachment-div_update">
+                                <h4>Current Documents</h4>
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>PREVIEW</th>
+                                                <th>NAME</th>
+                                                <th>ACTION</th>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attachment-update-holder">
+
+
+                                        </tbody>
+                                    </table>
                                 </div>
-                            
+                            </div>
+
 
                         </div>
 
@@ -420,17 +421,7 @@
         </div>
     </div>
 </div>
-{{-- <div>
-    <div class="alert alert-danger mb-2" role="alert">
-        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
-    </div>
-    <div class="alert alert-danger mb-2" role="alert">
-        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
-    </div>
-    <div class="alert alert-danger mb-2" role="alert">
-        <i class="bx bx-error"></i> Good Morning! Start your day with some alerts.
-    </div>
-</div> --}}
+
 
 
 <script>
@@ -823,9 +814,25 @@
     }
 
     /**
+     * @name apertmentDetails
+     * @description redirect to apertment Details page
+     * @parameter apertment id
+     * @return 
+     */
+
+    function apertmentDetails(id) {
+        console.log(id);
+        var url = "{{url('apertment/details','id')}}";
+        url = url.replace('id',id);
+        console.log(url);
+        window.location.href = url;
+
+    }
+
+    /**
      * @name openModal
      * @description open modal from button click.
-     * @parameter
+     * @parameter apertment id
      * @return 
      */
     function editApertment(id) {
@@ -839,7 +846,7 @@
             success: function (response) {
 
                 //setting value
-                console.log(response);
+                //console.log(response);
                 $("#id_update").val(response.apertment.id);
                 $("#name_update").val(response.apertment.name);
                 $("#address_update").val(response.apertment.address);
@@ -851,17 +858,20 @@
                 $("#attachment-update-holder").empty();
                 var markup = "";
                 $.each(response.attachments, function (index, value) {
-                    
-                    markup+= '<tr>';
-                    markup+= '<td><img height="100" width="100"src="'+value.path+'"alt=""></td>';
-                    markup+='<td class="text-bold-500 text-muted line-ellipsis">'+value.name+'</td>';
-                    markup+='<td><a href="#" onclick="deleteAttacment('+value.id+',this)"><i class="badge-circle badge-circle-light-secondary bx bx-trash font-medium-1"></i></a>'
-                    markup+='</td>';
-                    markup+='</tr>';
-                                               
+
+                    markup += '<tr>';
+                    markup += '<td><img height="100" width="100"src="' + value.path +
+                        '"alt=""></td>';
+                    markup += '<td class="text-bold-500 text-muted line-ellipsis">' + value.name +
+                        '</td>';
+                    markup += '<td><a href="#" onclick="deleteAttacment(' + value.id +
+                        ',this)"><i class="badge-circle badge-circle-light-secondary bx bx-trash font-medium-1"></i></a>'
+                    markup += '</td>';
+                    markup += '</tr>';
+
                 });
 
-                console.log(markup);
+                //console.log(markup);
                 $("#attachment-update-holder").append(markup);
                 //$("#attachment-update-holder").load(location.href + "#attachment-update-holder");
 
@@ -987,7 +997,7 @@
      * @parameter attachment id
      * @return json response
      */
-    function deleteAttacment(id,data) {
+    function deleteAttacment(id, data) {
         swal({
                 title: "Are you sure to Delete This?",
                 text: "You will not be able to recover this!",
