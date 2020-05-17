@@ -32,3 +32,5 @@ include 'homeRoute.php';
 include 'shopRoute.php';
 //rent route
 include 'rentRoute.php';
+//attachment route
+include 'attachmentRoute.php';

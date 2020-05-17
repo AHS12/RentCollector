@@ -18,7 +18,13 @@
             data-icon-style="lines">
             <li class=" navigation-header"><span>CORE</span>
             </li>
-            <li class=" @if (Route::getCurrentRoute()->uri() == "/") active @endif nav-item"><a href="index.html"><i class="far fa-building"></i><span class="menu-title"
+        <li class=" @if (Route::getCurrentRoute()->uri() == "/") active @endif nav-item"><a href="{{URL('/')}}"><i
+                        class="bx bx-desktop"></i><span class="menu-title"
+                        data-i18n="Dashboard">Dashboard</span></a>
+            </li>
+
+            <li class=" nav-item"><a href="javascript:void(0)"><i
+                        class="far fa-building"></i><span class="menu-title"
                         data-i18n="Dashboard">Home/Apertment</span></a>
                 <ul class="menu-content">
                     <li class=" @if (Route::getCurrentRoute()->uri() == "apertments") active @endif "><a href="
@@ -33,5 +39,5 @@
 
         </ul>
     </div>
-    
+
 </div>
