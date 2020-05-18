@@ -830,8 +830,8 @@
     }
 
     /**
-     * @name openModal
-     * @description open modal from button click.
+     * @name editApertment
+     * @description open modal from button click and populate the edit modal.
      * @parameter apertment id
      * @return 
      */
@@ -1120,7 +1120,7 @@
         markup += '<div class="form-group">';
         markup += '<div class="controls" id="attachment-div_update' + counter_update + '">';
         markup += '<label for="first-name-vertical">Concern Person Documents</label>';
-        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' + counter +
+        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' + counter_update +
             '" class="form-control fileInputUpdate" required>';
         markup += '</div>';
         markup += '</div>';
