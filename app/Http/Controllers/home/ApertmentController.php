@@ -126,7 +126,7 @@ class ApertmentController extends Controller
         $validator = Validator::make(
             $attributeNames,
             [
-                'name'                      => 'required|unique:apertments|min:3',
+                'name'                      => 'required|min:3|unique:apertments,name,NULL,id,user_id,'.$userId,
                 'address'                   => 'required|min:5',
                 'conecrn_person'            => 'required|min:3',
                 'conecrn_email'             => 'required|unique:apertments|email',
@@ -219,7 +219,7 @@ class ApertmentController extends Controller
         $validator = Validator::make(
             $attributeNames,
             [
-                'name'                      => "required|min:3|unique:apertments,name,{$id}",
+                'name'                      => "required|min:3|unique:apertments,name,{$id},id,user_id,{$userId}",
                 'address'                   => "required|min:5",
                 'conecrn_person'            => "required|min:3",
                 'conecrn_email'             => "required|email|unique:apertments,conecrn_email,{$id}",
