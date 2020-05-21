@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
         content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>DataTables - Frest - Bootstrap HTML admin template</title>
+    <title>Rent Collector - Your Rent Manager</title>
     <link rel="apple-touch-icon" href="{{asset('app-assets/images/ico/apple-icon-120.html')}}">
     <link rel="shortcut icon" type="image/x-icon"
         href="{{asset('favicon.ico')}}">
@@ -40,6 +40,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/ui/prism.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/file-uploaders/dropzone.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -135,6 +139,14 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/vendors/js/ui/prism.min.js')}}"></script>
     <script src="{{asset('packages/bootstrap-sweetalert/dist/sweetalert.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.time.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/daterange/moment.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/daterange/daterangepicker.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -149,6 +161,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Page JS-->
     <script src="{{asset('app-assets/js/scripts/datatables/datatable.min.js')}}"></script>
     <script src="{{asset('app-assets/js/scripts/modal/components-modal.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/forms/select/form-select2.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/forms/number-input.min.js')}}"></script>
+    {{-- <script src="{{asset('app-assets/js/scripts/pickers/dateTime/pick-a-datetime.min.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/forms/validation/form-validation.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/extensions/dropzone.min.js')}}"></script> --}}
     <!-- END: Page JS-->

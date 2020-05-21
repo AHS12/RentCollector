@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\rent;
 
+use App\home\ApertmentModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +27,12 @@ class RentController extends Controller
     {
         $userId = Auth::user()->id;
         $rents = RentModel::where('soft_delete', 0)->where('user_id', $userId)->get();
+        $apertments = ApertmentModel::where('soft_delete', 0)->where('user_id', $userId)->get();
         $data = [
-            'rents' => $rents
+            'rents'      => $rents,
+            'apertments' => $apertments
         ];
-        return view('rent.home.apertments', $data);
+        return view('rent.home.rents', $data);
     }
 
     /**
@@ -81,7 +84,7 @@ class RentController extends Controller
             'month'                => $rentMonth,
             'original_rent'        => $request->original_rent,
             'rent'                 => $request->collected_rent,
-            'advance'              => $request->advance_rent,
+           // 'advance'              => $request->advance_rent,
             'due'                  => $request->due_rent,
             'expense'              => $request->expense,
             'created_by'           => $userName,

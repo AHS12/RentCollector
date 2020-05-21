@@ -31,7 +31,7 @@
                         {{URL('apertments')}}"><i class="fas fa-arrow-right"></i><span class="menu-item"
                             data-i18n="eCommerce">Apertments</span></a>
                     </li>
-                    <li><a href="dashboard-analytics.html"><i class="fas fa-arrow-right"></i><span class="menu-item"
+                <li class="@if (Route::getCurrentRoute()->uri() == "apertment/rents") active @endif"><a href="{{URL('apertment/rents')}}"><i class="fas fa-arrow-right"></i><span class="menu-item"
                                 data-i18n="Analytics">Rents</span></a>
                     </li>
                 </ul>
