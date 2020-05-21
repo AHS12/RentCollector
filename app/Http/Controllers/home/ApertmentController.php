@@ -31,7 +31,13 @@ class ApertmentController extends Controller
     }
 
 
-
+    /**
+     * @name apertmentDetailsView
+     * @role an apertments details view
+     * @param Request form array
+     * @return compact array with view
+     *
+     */
     public function apertmentDetailsView(Request $request){
         $id = $request->id;
         $userId = Auth::user()->id;
