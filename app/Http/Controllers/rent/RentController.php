@@ -35,6 +35,16 @@ class RentController extends Controller
         return view('rent.home.rents', $data);
     }
 
+
+    public function rentApertmentAjaxLoad(){
+        $userId = Auth::user()->id;
+        $rents = RentModel::where('soft_delete', 0)->where('user_id', $userId)->get();
+        $data = [
+            'rents'      => $rents,
+        ];
+        return view('rent.home.ajaxLoad.rentAjaxLoad', $data);
+    }
+
     /**
      * @name getRentApertmentDetails
      * @role fetch Rent of an Apertment record from the database
@@ -67,20 +77,21 @@ class RentController extends Controller
     public function rentApertmentInsertAjax(Request $request)
     {
 
-        //dd($request->all());
+        // dd($request->all());
         $userName = Auth::user()->name;
         $userId = Auth::user()->id;
         $defaultStatus = 0;
 
 
-        $date = $request->rent_date;
+        $date = date("Y-m-d",strtotime($request->rent_date));
         $rentMonth = date("F", strtotime($date));
 
+        // dd($date);
         //gettings attributes
         $attributeNames = array(
             'user_id'              => $userId,
             'aprt_id'              => $request->apertment,
-            'date'                 => $request->rent_date,
+            'date'                 => $date,
             'month'                => $rentMonth,
             'original_rent'        => $request->original_rent,
             'rent'                 => $request->collected_rent,
@@ -101,11 +112,11 @@ class RentController extends Controller
             $attributeNames,
             [
                 'aprt_id'           => 'required|integer',
-                'date'              => 'required|date|unique:rents,date,NULL,id,user_id,' . $userId,
+                'date'              => 'required|date|unique:rents,date,NULL,id,user_id,' . $userId.',aprt_id,'.$request->apertment,
                 'original_rent'     => 'required|numeric|min:1',
-                'rent'              => 'required|numeric|min:1',
-                'due'               => 'required|numeric|min:1',
-                'expense'           => 'required|numeric|min:1',
+                'rent'              => 'required|numeric|min:0',
+                'due'               => 'required|numeric|min:0',
+                'expense'           => 'required|numeric|min:0',
 
             ],
             [
@@ -165,7 +176,7 @@ class RentController extends Controller
             $attributeNames,
             [
                 'aprt_id'           => 'required|integer',
-                'date'              => 'required|date|unique:rents,date,' . $id . ',id,user_id,' . $userId,
+                'date'              => 'required|date|unique:rents,date,' . $id . ',id,user_id,' . $userId.',aprt_id,'.$request->apertment,
                 'original_rent'     => 'required|numeric|min:1',
                 'rent'              => 'required|numeric|min:1',
                 'due'               => 'required|numeric|min:1',

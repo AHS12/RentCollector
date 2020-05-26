@@ -2,19 +2,21 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card" >
             <div class="card-header">
                 <h4 class="card-title"><i class='bx bx-money'></i> Apertment Rents</h4>
             </div>
             <div class="card-content">
-                <div class="card-body card-dashboard">
+                <div class="card-body card-dashboard" >
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="contentDiv">
                         <table class="table zero-configuration">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Date</th>
                                     <th>Month</th>
+                                    <th>Apertment</th>
                                     <th>Original <br> Rent</th>
                                     <th>Collected <br> Rent</th>
                                     <th>Due</th>
@@ -23,15 +25,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($rents as $rent)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$rent->date}}</td>
+                                    <td>{{$rent->month}}</td>
+                                    <td>{{$rent->apertment->name}}</td>
+                                    <td>{{$rent->original_rent}}</td>
+                                    <td>{{$rent->rent}}</td>
+                                    <td>{{$rent->due}}</td>
+                                    <td>{{$rent->expense}}</td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
 
 
 
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>#</th>
                                     <th>Date</th>
                                     <th>Month</th>
+                                    <th>Apertment</th>
                                     <th>Original <br> Rent</th>
                                     <th>Collected <br> Rent</th>
                                     <th>Due</th>
@@ -391,7 +407,7 @@
         var collectedRent = parseFloat(data.value);
         var originalRent = parseFloat($('#original-rent').val());
         if (collectedRent > originalRent) {
-            swal("Error!","Invalid Collected Rent Value", "warning");
+            swal("Error!", "Invalid Collected Rent Value", "warning");
             $('#collected-rent').val(0);
             var due = originalRent - $('#collected-rent').val();
             if (due > 0) {
@@ -399,8 +415,7 @@
             } else {
                 $('#due').val(0);
             }
-        }
-        else if (originalRent > 0 && collectedRent >= 0) {
+        } else if (originalRent > 0 && collectedRent >= 0) {
             var due = originalRent - collectedRent;
             if (due > 0) {
                 $('#due').val(due);
@@ -425,13 +440,11 @@
         var collectedRent = parseFloat($('#collected-rent').val());
 
         if (collectedRent > originalRent) {
-            swal("Error!","Invalid Value", "warning");
+            swal("Error!", "Invalid Value", "warning");
             $('#collected-rent').val(0)
-        }
+        } else if (due > originalRent) {
+            swal("Error!", "Invalid Due Value", "warning");
 
-        else if (due > originalRent) {
-            swal("Error!","Invalid Due Value", "warning");
-            
             //$("#due").val(0)
             $('#collected-rent').val(0);
             var due = originalRent - $('#collected-rent').val();
@@ -440,10 +453,7 @@
             } else {
                 $('#due').val(0);
             }
-        }
-
-
-        else if (originalRent > 0) {
+        } else if (originalRent > 0) {
             var collectedRent = originalRent - due;
             $('#collected-rent').val(collectedRent);
             var due = originalRent - collectedRent;
@@ -452,7 +462,7 @@
             } else {
                 $('#due').val(0);
             }
-            
+
 
         }
 
@@ -510,10 +520,10 @@
                 },
                 function (isConfirm) {
                     if (isConfirm) {
-                        $("#xlarge").modal('hide');
+                        $("#rent-add-modal").modal('hide');
                         var formData = new FormData(form);
                         $.ajax({
-                            url: "{{ url('apertment/insert') }}",
+                            url: "{{ url('apertment/rent/insert') }}",
                             method: "POST",
                             data: formData,
                             enctype: 'multipart/form-data',
@@ -561,9 +571,7 @@
                                         "warning");
                                 } else {
                                     $(form).trigger('reset');
-                                    $("#tableDiv").load(location.href + " #tableDiv");
-                                    $("#home-align-end").load(location.href +
-                                        " #home-align-end");
+                                    $("#contentDiv").load('{{URL("apertment/rent/ajaxload")}}');
                                     swal(result, "Data inserted Successfully.", "success");
                                 }
 
@@ -770,7 +778,7 @@
                 required: true
             }; // set required true against every name
             //apply more rules, you can also apply custom rules & messages
-            
+
 
 
 
