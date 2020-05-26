@@ -35,8 +35,15 @@ class RentController extends Controller
         return view('rent.home.rents', $data);
     }
 
-
-    public function rentApertmentAjaxLoad(){
+    /**
+     * @name rentApertmentAjaxLoad
+     * @role all rent of an apertments view ajax load
+     * @param 
+     * @return compact array with view
+     *
+     */
+    public function rentApertmentAjaxLoad()
+    {
         $userId = Auth::user()->id;
         $rents = RentModel::where('soft_delete', 0)->where('user_id', $userId)->get();
         $data = [
@@ -83,7 +90,7 @@ class RentController extends Controller
         $defaultStatus = 0;
 
 
-        $date = date("Y-m-d",strtotime($request->rent_date));
+        $date = date("Y-m-d", strtotime($request->rent_date));
         $rentMonth = date("F", strtotime($date));
 
         // dd($date);
@@ -95,7 +102,7 @@ class RentController extends Controller
             'month'                => $rentMonth,
             'original_rent'        => $request->original_rent,
             'rent'                 => $request->collected_rent,
-           // 'advance'              => $request->advance_rent,
+            // 'advance'              => $request->advance_rent,
             'due'                  => $request->due_rent,
             'expense'              => $request->expense,
             'created_by'           => $userName,
@@ -112,7 +119,8 @@ class RentController extends Controller
             $attributeNames,
             [
                 'aprt_id'           => 'required|integer',
-                'date'              => 'required|date|unique:rents,date,NULL,id,user_id,' . $userId.',aprt_id,'.$request->apertment,
+                'date'              => 'required|date|unique:rents,date,NULL,id,user_id,' . $userId . ',aprt_id,' . $request->apertment.',deleted_at,NULL',
+                'month'              => 'required|unique:rents,month,NULL,id,user_id,' . $userId . ',aprt_id,' . $request->apertment.',deleted_at,NULL',
                 'original_rent'     => 'required|numeric|min:1',
                 'rent'              => 'required|numeric|min:0',
                 'due'               => 'required|numeric|min:0',
@@ -120,7 +128,8 @@ class RentController extends Controller
 
             ],
             [
-                'date.unique'      => 'Rent Of this month is already Exists',
+                'date.unique'       => 'Rent Of this month is already Exists',
+                'month.unique'      => 'Rent Of this month is already Exists',
             ]
         );
 
@@ -162,7 +171,7 @@ class RentController extends Controller
             'month'                => $rentMonth,
             'original_rent'        => $request->original_rent,
             'rent'                 => $request->collected_rent,
-            'advance'              => $request->advance_rent,
+            // 'advance'              => $request->advance_rent,
             'due'                  => $request->due_rent,
             'expense'              => $request->expense,
             'updated_by'           => $userName,
@@ -176,15 +185,17 @@ class RentController extends Controller
             $attributeNames,
             [
                 'aprt_id'           => 'required|integer',
-                'date'              => 'required|date|unique:rents,date,' . $id . ',id,user_id,' . $userId.',aprt_id,'.$request->apertment,
+                'date'              => 'required|date|unique:rents,date,' . $id . ',id,user_id,' . $userId . ',aprt_id,' . $request->apertment.',deleted_at,NULL',
+                'month'             => 'required|unique:rents,month,' . $id . ',id,user_id,' . $userId . ',aprt_id,' . $request->apertment.',deleted_at,NULL',
                 'original_rent'     => 'required|numeric|min:1',
-                'rent'              => 'required|numeric|min:1',
-                'due'               => 'required|numeric|min:1',
-                'expense'           => 'required|numeric|min:1',
+                'rent'              => 'required|numeric|min:0',
+                'due'               => 'required|numeric|min:0',
+                'expense'           => 'required|numeric|min:0',
 
             ],
             [
-                'date.unique'      => 'Rent Of this month is already Exists',
+                'date.unique'       => 'Rent Of this month is already Exists',
+                'month.unique'      => 'Rent Of this month is already Exists',
             ]
         );
 
@@ -210,11 +221,11 @@ class RentController extends Controller
     {
         $id = decrypt($request->id);
         $rent = RentModel::findOrFail($id);
-        try {
-            $rent->update(['soft_delete' => 1]);
+        $deleteResponse = $rent->delete();
+        if ($deleteResponse) {
             return response()->json("Success");
-        } catch (\Exception $exception) {
-            return response()->json(array('errors' => $exception->getMessage()));
+        } else {
+            return response()->json(array('errors' => "Something Went Wrong"));
         }
     }
 

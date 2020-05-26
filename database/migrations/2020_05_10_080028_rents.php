@@ -33,6 +33,7 @@ class Rents extends Migration
             $table->string('created_by');
             $table->string('updated_by');
             $table->boolean('soft_delete')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

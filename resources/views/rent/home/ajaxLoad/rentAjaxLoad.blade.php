@@ -24,7 +24,20 @@
                 <td>{{$rent->rent}}</td>
                 <td>{{$rent->due}}</td>
                 <td>{{$rent->expense}}</td>
-                <td></td>
+                <td>
+                    <a href="javaScript:void(0);" onclick="editRent('{{encrypt($rent->id)}}')"
+                        style="padding: 5px 10px;" class="btn btn-default btn-xs border"
+                        data-toggle="tooltip" data-placement="top" title=""
+                        data-original-title="Delete">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <a href="javaScript:void(0);" onclick="deleteRent('{{encrypt($rent->id)}}')"
+                        style="padding: 5px 10px;" class="btn btn-default btn-xs border"
+                        data-toggle="tooltip" data-placement="top" title=""
+                        data-original-title="Delete">
+                        <i class="bx bx-trash"></i>
+                    </a>
+                </td>
             </tr>
             @endforeach
 

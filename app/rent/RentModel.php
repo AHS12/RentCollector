@@ -6,10 +6,12 @@ use App\home\ApertmentModel;
 use App\shop\ShopModel;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RentModel extends Model
 {
     //
+    use SoftDeletes;
     protected $table = "rents";
     protected $fillable = [
         "user_id",

@@ -2,12 +2,12 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card" >
+        <div class="card">
             <div class="card-header">
                 <h4 class="card-title"><i class='bx bx-money'></i> Apertment Rents</h4>
             </div>
             <div class="card-content">
-                <div class="card-body card-dashboard" >
+                <div class="card-body card-dashboard">
 
                     <div class="table-responsive" id="contentDiv">
                         <table class="table zero-configuration">
@@ -35,7 +35,20 @@
                                     <td>{{$rent->rent}}</td>
                                     <td>{{$rent->due}}</td>
                                     <td>{{$rent->expense}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="javaScript:void(0);" onclick="editRent('{{encrypt($rent->id)}}')"
+                                            style="padding: 5px 10px;" class="btn btn-default btn-xs border"
+                                            data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Delete">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        <a href="javaScript:void(0);" onclick="deleteRent('{{encrypt($rent->id)}}')"
+                                            style="padding: 5px 10px;" class="btn btn-default btn-xs border"
+                                            data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Delete">
+                                            <i class="bx bx-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
 
@@ -77,8 +90,8 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel16">Add Rent</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title" id="rent-add-modal-title">Add Rent</h4>
+                <button type="button" class="close" onclick="closeModalStatic('rent-add-modal')" aria-label="Close">
                     <i class="bx bx-x"></i>
                 </button>
             </div>
@@ -107,9 +120,11 @@
                             <div class="form-group">
                                 <div class="controls">
                                     <label for="first-name-vertical">Select Apertment</label>
-                                    <select data-placeholder="Select Apertment" class="select2-icons form-control"
-                                        id="apertment" name="apertment" required data-error="#errorapertment">
-                                        <option value="" data-icon="bx bx-building-house" selected>--SELECT--</option>
+                                    <select class=" form-control" id="apertment" name="apertment" required
+                                        data-error="#errorapertment">
+                                        <option value="" data-icon="bx bx-building-house" selected>
+                                            --SELECT APERTMENT--
+                                        </option>
                                         @foreach ($apertments as $apertment)
                                         <option value="{{$apertment->id}}" data-icon="bx bx-building-house">
                                             {{$apertment->name}}
@@ -125,7 +140,7 @@
 
                                 <div class="controls">
                                     <label for="first-name-vertical">Original Rent</label>
-                                    <input type="number" onkeyup="calculateDueByRent(this)" id="original-rent"
+                                    <input type="number" onkeyup="calculateDueByRent(this,1)" id="original-rent"
                                         name="original_rent" class="touchspin form-control text-center"
                                         data-bts-step="0.5" data-bts-decimals="2" min="1" value="0" required
                                         data-error="#errororent">
@@ -139,10 +154,10 @@
 
                                 <div class="controls">
                                     <label for="first-name-vertical">Collected Rent</label>
-                                    <input type="number" onkeyup="calculateDueByRentCollected(this)" id="collected-rent"
-                                        name="collected_rent" class="touchspin form-control text-center"
-                                        data-bts-step="0.5" data-bts-decimals="2" min="0" value="0" required
-                                        data-error="#errorcrent">
+                                    <input type="number" onkeyup="calculateDueByRentCollected(this,1)"
+                                        id="collected-rent" name="collected_rent"
+                                        class="touchspin form-control text-center" data-bts-step="0.5"
+                                        data-bts-decimals="2" min="0" value="0" required data-error="#errorcrent">
 
                                 </div>
                                 <div id="errorcrent"></div>
@@ -154,7 +169,7 @@
 
                                 <div class="controls">
                                     <label for="first-name-vertical">Due</label>
-                                    <input type="number" name="due_rent" onkeyup="calculateDue(this)"
+                                    <input type="number" name="due_rent" onkeyup="calculateDue(this,1)"
                                         class="touchspin form-control text-center" id="due" value="0"
                                         data-bts-step="0.5" data-bts-decimals="2" min="0" required
                                         data-error="#errordue">
@@ -188,11 +203,11 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-light-secondary" onclick="closeModalStatic('rent-add-modal')">
                     <i class="bx bx-x d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Close</span>
                 </button>
-                <button type="submit" class="btn btn-primary ml-1">
+                <button type="submit" id="save-btn" class="btn btn-primary ml-1">
                     <i class="bx bx-check d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Save</span>
                 </button>
@@ -207,102 +222,113 @@
 
 <div class="modal fade text-left w-100" id="rent-update-modal" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel16" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel16">Edit Apertment</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title" id="rent-add-modal-title">Edit Rent</h4>
+                <button type="button" class="close" onclick="closeModalStatic('rent-update-modal')" aria-label="Close">
                     <i class="bx bx-x"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="rentUpdateForm">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="controls">
+                                    <label for="first-name-vertical">Choose Date</label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input type="text" id="rent-date-update" name="rent_date"
+                                            class="form-control pickadate-months-year" placeholder="Select Date"
+                                            required data-error="#errorDateUpdate">
+                                        <input type="hidden" name="id" id="rentid">
+                                        <div id="errorDateUpdate"></div>
+                                        <div class="form-control-position">
+                                            <i class='bx bx-calendar'></i>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="controls">
+                                    <label for="first-name-vertical">Select Apertment</label>
+                                    <select class=" form-control" id="apertment-update" name="apertment" required
+                                        data-error="#errorapertmentupdate">
+                                        <option value="" data-icon="bx bx-building-house" selected>
+                                            --SELECT APERTMENT--
+                                        </option>
+                                        @foreach ($apertments as $apertment)
+                                        <option value="{{$apertment->id}}" data-icon="bx bx-building-house">
+                                            {{$apertment->name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div id="errorapertmentupdate"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
 
                                 <div class="controls">
-                                    <label for="first-name-vertical">Apertment Name</label>
-                                    <input type="text" name="name" minlength="3" id="name_update" class="form-control"
-                                        placeholder="Apertment Name" required>
-                                    <input type="hidden" name="id" id="id_update">
+                                    <label for="first-name-vertical">Original Rent</label>
+                                    <input type="number" onkeyup="calculateDueByRent(this,2)" id="original-rent-update"
+                                        name="original_rent" class="touchspin form-control text-center"
+                                        data-bts-step="0.5" data-bts-decimals="2" min="1" value="0" required
+                                        data-error="#errororentupdate">
                                 </div>
+                                <div id="errororentupdate"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+
+                        <div class="col-sm-12">
                             <div class="form-group">
 
                                 <div class="controls">
-                                    <label for="first-name-vertical">Address</label>
-                                    <input type="text" name="address" class="form-control" id="address_update"
-                                        placeholder="Apertment Address" minlength="5" required>
+                                    <label for="first-name-vertical">Collected Rent</label>
+                                    <input type="number" onkeyup="calculateDueByRentCollected(this,2)"
+                                        id="collected-rent-update" name="collected_rent"
+                                        class="touchspin form-control text-center" data-bts-step="0.5"
+                                        data-bts-decimals="2" min="0" value="0" required data-error="#errorcrentupdate">
+
                                 </div>
+                                <div id="errorcrentupdate"></div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
 
                                 <div class="controls">
-                                    <label for="first-name-vertical">Concern Person Name</label>
-                                    <input type="text" name="concern_person" class="form-control"
-                                        id="concern_person_update" placeholder="Concern Person Name" minlength="3"
-                                        required>
+                                    <label for="first-name-vertical">Due</label>
+                                    <input type="number" name="due_rent" onkeyup="calculateDue(this,2)"
+                                        class="touchspin form-control text-center" id="due-update" value="0"
+                                        data-bts-step="0.5" data-bts-decimals="2" min="0" required
+                                        data-error="#errordueupdate">
                                 </div>
+                                <div id="errordueupdate"></div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
 
                                 <div class="controls">
-                                    <label for="first-name-vertical">Concern Person Phone</label>
-                                    <input type="number" pattern="^\d{11}$" minlength="11" maxlength="11"
-                                        name="concern_phone" id="concern_phone_update" class="form-control"
-                                        placeholder="Concern Person Phone" required>
+                                    <label for="first-name-vertical">Expense</label>
+                                    <input type="number" id="expense-update" name="expense"
+                                        class="touchspin form-control text-center" value="0" data-bts-step="0.5"
+                                        data-bts-decimals="2" min="0" required data-error="#errorexpenseupdate">
                                 </div>
+                                <div id="errorexpenseupdate"></div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
 
-                                <div class="controls">
-                                    <label for="first-name-vertical">Concern Person Email</label>
-                                    <input type="email" name="concern_email" id="concern_email_update"
-                                        class="form-control" placeholder="Concern Person Email" required>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-
-                                <div class="controls">
-                                    <label for="first-name-vertical">Concern Person NID/Birth Certificate/Passport
-                                        No</label>
-                                    <input type="number" min="0" pattern="^\d*" id="concern_nid_birth_update"
-                                        name="concern_nid_birth" class="form-control" minlength="9"
-                                        placeholder="Concern Person NID/Birth Certificate No/Passport No" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6" id="fileholder_update">
-                            <div class="form-group">
-
-                                <div class="controls" id="attachment-div_update">
-                                    <label for="first-name-vertical">Concern Person Documents</label>
-                                    <input type="file" name="attachment[0]" id="attachment_update"
-                                        class="form-control fileInputUpdate">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button type="button" onclick="addAttachmentUpdate()" class="btn btn-info  btn-circle"><i
-                                    class="bx bx-plus"></i></button>
-                            <button type="button" onclick="removeAttachmentUpdate()"
-                                class="btn btn-danger btn-circle"><i class="bx bx-minus"></i></button>
-                        </div>
 
 
 
@@ -313,11 +339,11 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-light-secondary" onclick="closeModalStatic('rent-update-modal')">
                     <i class="bx bx-x d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Close</span>
                 </button>
-                <button type="submit" class="btn btn-primary ml-1">
+                <button type="submit" id="save-btn" class="btn btn-primary ml-1">
                     <i class="bx bx-check d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Save</span>
                 </button>
@@ -335,6 +361,9 @@
         initValidation();
         //initialize update form validation
         initValidationUpdate();
+
+
+
         //datepicker  init
         $(".pickadate-months-year").pickadate({
             selectYears: !0,
@@ -343,17 +372,32 @@
 
         //initializing the thouchspin function of Original rent
         $('#original-rent').on('touchspin.on.startspin', function () {
-            calculateDueByRent(this);
+            calculateDueByRent(this, 1);
         })
 
         //initializing the thouchspin function of Original rent
         $('#collected-rent').on('touchspin.on.startspin', function () {
-            calculateDueByRentCollected(this);
+            calculateDueByRentCollected(this, 1);
         })
 
         //initializing the touchspin function of due
         $('#due').on('touchspin.on.startspin', function () {
-            calculateDue(this);
+            calculateDue(this, 1);
+        });
+
+        //initializing the thouchspin function of Original rent update
+        $('#original-rent-update').on('touchspin.on.startspin', function () {
+            calculateDueByRent(this, 2);
+        })
+
+        //initializing the thouchspin function of Original rent update
+        $('#collected-rent-update').on('touchspin.on.startspin', function () {
+            calculateDueByRentCollected(this, 2);
+        })
+
+        //initializing the touchspin function of due update
+        $('#due-update').on('touchspin.on.startspin', function () {
+            calculateDue(this, 2);
         });
 
 
@@ -377,23 +421,44 @@
      * @parameter this of original rent
      * @return 
      */
-    function calculateDueByRent(data) {
+    function calculateDueByRent(data, phase) {
         console.log(data.value);
-        var originalRent = parseFloat(data.value);
-        var collectedRent = parseFloat($('#collected-rent').val());
-        if (collectedRent > originalRent) {
-            // swal("Error!","Invalid Value", "warning");
-            $('#collected-rent').val(0)
-        }
-        if (collectedRent >= 0) {
-            var due = originalRent - collectedRent;
-            if (due > 0) {
-                $('#due').val(due);
-            } else {
-                $('#due').val(0);
-            }
+        console.log(phase);
 
+        if (phase == 1) {
+            var originalRent = parseFloat(data.value);
+            var collectedRent = parseFloat($('#collected-rent').val());
+            if (collectedRent > originalRent) {
+                // swal("Error!","Invalid Value", "warning");
+                $('#collected-rent').val(0)
+            }
+            if (collectedRent >= 0) {
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
+
+            }
+        } else {
+            var originalRent = parseFloat(data.value);
+            var collectedRent = parseFloat($('#collected-rent-update').val());
+            if (collectedRent > originalRent) {
+                // swal("Error!","Invalid Value", "warning");
+                $('#collected-rent-update').val(0)
+            }
+            if (collectedRent >= 0) {
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due-update').val(due);
+                } else {
+                    $('#due-update').val(0);
+                }
+
+            }
         }
+
     }
 
     /**
@@ -402,28 +467,53 @@
      * @parameter this of collected rent
      * @return 
      */
-    function calculateDueByRentCollected(data) {
+    function calculateDueByRentCollected(data, phase) {
         console.log(data.value);
-        var collectedRent = parseFloat(data.value);
-        var originalRent = parseFloat($('#original-rent').val());
-        if (collectedRent > originalRent) {
-            swal("Error!", "Invalid Collected Rent Value", "warning");
-            $('#collected-rent').val(0);
-            var due = originalRent - $('#collected-rent').val();
-            if (due > 0) {
-                $('#due').val(due);
-            } else {
-                $('#due').val(0);
-            }
-        } else if (originalRent > 0 && collectedRent >= 0) {
-            var due = originalRent - collectedRent;
-            if (due > 0) {
-                $('#due').val(due);
-            } else {
-                $('#due').val(0);
-            }
+        console.log(phase);
+        if (phase == 1) {
+            var collectedRent = parseFloat(data.value);
+            var originalRent = parseFloat($('#original-rent').val());
+            if (collectedRent > originalRent) {
+                swal("Error!", "Invalid Collected Rent Value", "warning");
+                $('#collected-rent').val(0);
+                var due = originalRent - $('#collected-rent').val();
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
+            } else if (originalRent > 0 && collectedRent >= 0) {
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
 
+            }
+        } else {
+            var collectedRent = parseFloat(data.value);
+            var originalRent = parseFloat($('#original-rent-update').val());
+            if (collectedRent > originalRent) {
+                swal("Error!", "Invalid Collected Rent Value", "warning");
+                $('#collected-rent-update').val(0);
+                var due = originalRent - $('#collected-rent-update').val();
+                if (due > 0) {
+                    $('#due-update').val(due);
+                } else {
+                    $('#due-update').val(0);
+                }
+            } else if (originalRent > 0 && collectedRent >= 0) {
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due-update').val(due);
+                } else {
+                    $('#due-update').val(0);
+                }
+
+            }
         }
+
 
     }
 
@@ -433,38 +523,75 @@
      * @parameter this of due
      * @return 
      */
-    function calculateDue(data) {
+    function calculateDue(data, phase) {
         console.log(data.value);
-        var due = data.value;
-        var originalRent = parseFloat($('#original-rent').val());
-        var collectedRent = parseFloat($('#collected-rent').val());
+        console.log(phase);
 
-        if (collectedRent > originalRent) {
-            swal("Error!", "Invalid Value", "warning");
-            $('#collected-rent').val(0)
-        } else if (due > originalRent) {
-            swal("Error!", "Invalid Due Value", "warning");
+        if (phase == 1) {
+            var due = data.value;
+            var originalRent = parseFloat($('#original-rent').val());
+            var collectedRent = parseFloat($('#collected-rent').val());
 
-            //$("#due").val(0)
-            $('#collected-rent').val(0);
-            var due = originalRent - $('#collected-rent').val();
-            if (due > 0) {
-                $('#due').val(due);
-            } else {
-                $('#due').val(0);
+            if (collectedRent > originalRent) {
+                swal("Error!", "Invalid Value", "warning");
+                $('#collected-rent').val(0)
+            } else if (due > originalRent) {
+                swal("Error!", "Invalid Due Value", "warning");
+
+                //$("#due").val(0)
+                $('#collected-rent').val(0);
+                var due = originalRent - $('#collected-rent').val();
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
+            } else if (originalRent > 0) {
+                var collectedRent = originalRent - due;
+                $('#collected-rent').val(collectedRent);
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
+
+
             }
-        } else if (originalRent > 0) {
-            var collectedRent = originalRent - due;
-            $('#collected-rent').val(collectedRent);
-            var due = originalRent - collectedRent;
-            if (due > 0) {
-                $('#due').val(due);
-            } else {
-                $('#due').val(0);
+        } else {
+            var due = data.value;
+            var originalRent = parseFloat($('#original-rent-update').val());
+            var collectedRent = parseFloat($('#collected-rent-update').val());
+
+            if (collectedRent > originalRent) {
+                swal("Error!", "Invalid Value", "warning");
+                $('#collected-rent-update').val(0)
+            } else if (due > originalRent) {
+                swal("Error!", "Invalid Due Value", "warning");
+
+                //$("#due").val(0)
+                $('#collected-rent-update').val(0);
+                var due = originalRent - $('#collected-rent-update').val();
+                if (due > 0) {
+                    $('#due').val(due);
+                } else {
+                    $('#due').val(0);
+                }
+            } else if (originalRent > 0) {
+                var collectedRent = originalRent - due;
+                $('#collected-rent-update').val(collectedRent);
+                var due = originalRent - collectedRent;
+                if (due > 0) {
+                    $('#due-update').val(due);
+                } else {
+                    $('#due-update').val(0);
+                }
+
+
             }
-
-
         }
+
+
 
 
     }
@@ -571,7 +698,8 @@
                                         "warning");
                                 } else {
                                     $(form).trigger('reset');
-                                    $("#contentDiv").load('{{URL("apertment/rent/ajaxload")}}');
+                                    $("#contentDiv").load(
+                                        '{{URL("apertment/rent/ajaxload")}}');
                                     swal(result, "Data inserted Successfully.", "success");
                                 }
 
@@ -641,6 +769,15 @@
             $(element).removeClass('select-class');
         },
         errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+
         submitHandler: function (form) {
             //console.log(form);
             swal({
@@ -658,10 +795,10 @@
                 },
                 function (isConfirm) {
                     if (isConfirm) {
-                        $("#apertment-update-modal").modal('hide');
+                        $("#rent-update-modal").modal('hide');
                         var formData = new FormData(form);
                         $.ajax({
-                            url: "{{ url('apertment/update') }}",
+                            url: "{{ url('apertment/rent/update') }}",
                             method: "POST",
                             data: formData,
                             enctype: 'multipart/form-data',
@@ -703,16 +840,11 @@
                                         confirmButtonText: 'Close!',
                                     })
 
-
-                                } else if (typeof result.dbErrors !== 'undefined') {
-                                    swal("Error!", "Database Error!Please Try Again later!",
-                                        "warning");
                                 } else {
                                     $(form).trigger('reset');
-                                    $("#tableDiv").load(location.href + " #tableDiv");
-                                    $("#home-align-end").load(location.href +
-                                        " #home-align-end");
-                                    swal(result, "Data inserted Successfully.", "success");
+                                    $("#contentDiv").load(
+                                        '{{URL("apertment/rent/ajaxload")}}');
+                                    swal(result, "Data Updated Successfully.", "success");
                                 }
 
                             },
@@ -809,22 +941,13 @@
                 required: true
             }; // set required true against every name
             //apply more rules, you can also apply custom rules & messages
-            if (name === "concern_email") {
-                update_rules[name].email = true;
-                //messages[name].email = "Please provide valid email";
-            }
-            $('#rentUpdateForm').find('.fileInputUpdate').each(function (index, value) {
-                //console.log(index);
-                if (name === "attachment[" + index + "]") {
-                    update_rules[name].required = false;
-                }
-            });
+
 
 
 
         });
 
-        // console.log(update_rules);
+        console.log(update_rules);
 
 
     }
@@ -833,11 +956,39 @@
     /**
      * @name openModal
      * @description open modal from button click.
-     * @parameter
+     * @parameter modal id
      * @return 
      */
     function openModal(id) {
         $("#" + id).modal('show');
+    }
+
+    /**
+     * @name openModalStatic
+     * @description open modal from button click. cann't be closed from kerboard or ouline click
+     * @parameter modal id
+     * @return 
+     */
+    function openModalStatic(id) {
+        $("#" + id).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    }
+
+
+    /**
+     * @name closeModalStatic
+     * @description clsoe an static modal.also changed the modal form id
+     * @parameter modal id
+     * @return 
+     */
+    function closeModalStatic(id) {
+        modal = $('#' + id);
+        modal.find('form select').prop("selectedIndex", 0);
+        modal.modal('hide');
+
     }
 
 
@@ -849,9 +1000,12 @@
      * @return 
      */
     function editRent(id) {
-        $("#apertment-update-modal").modal('show');
+        modal = $('#rent-update-modal');
+        openModalStatic(modal.attr('id'));
+        initValidationUpdate();
+
         $.ajax({
-            url: "{{ url('apertment/getDetails') }}",
+            url: "{{ url('apertment/rent/getDetails') }}",
             method: "POST",
             data: {
                 id: id
@@ -859,33 +1013,16 @@
             success: function (response) {
 
                 //setting value
-                //console.log(response);
-                $("#id_update").val(response.apertment.id);
-                $("#name_update").val(response.apertment.name);
-                $("#address_update").val(response.apertment.address);
-                $("#concern_person_update").val(response.apertment.conecrn_person);
-                $("#concern_phone_update").val(response.apertment.conecrn_phone);
-                $("#concern_email_update").val(response.apertment.conecrn_email);
-                $("#concern_nid_birth_update").val(response.apertment.conecrn_nid_birth_passport);
+                console.log(response);
+                $("#rentid").val(response.id);
+                $("#rent-date-update").val(response.date);
+                $("#apertment-update").val(response.aprt_id);
+                $("#original-rent-update").val(response.original_rent);
+                $("#collected-rent-update").val(response.rent);
+                $("#due_rent-update").val(response.due);
+                $("#expense-update").val(response.expense);
 
-                $("#attachment-update-holder").empty();
-                var markup = "";
-                $.each(response.attachments, function (index, value) {
 
-                    markup += '<tr>';
-                    markup += '<td><img height="100" width="100"src="' + value.path +
-                        '"alt=""></td>';
-                    markup += '<td class="text-bold-500 text-muted line-ellipsis">' + value.name +
-                        '</td>';
-                    markup += '<td><a href="#" onclick="deleteAttacment(' + value.id +
-                        ',this)"><i class="badge-circle badge-circle-light-secondary bx bx-trash font-medium-1"></i></a>'
-                    markup += '</td>';
-                    markup += '</tr>';
-
-                });
-
-                //console.log(markup);
-                $("#attachment-update-holder").append(markup);
                 //$("#attachment-update-holder").load(location.href + "#attachment-update-holder");
 
 
@@ -950,7 +1087,7 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "{{ url('apertment/delete') }}",
+                        url: "{{ url('apertment/rent/delete') }}",
                         method: "POST",
                         data: {
                             id: id
@@ -960,8 +1097,8 @@
                                 swal("Error!", "Database Error!Please Try Again later!",
                                     "warning");
                             } else {
-                                $("#tableDiv").load(location.href + " #tableDiv");
-                                $("#home-align-end").load(location.href + " #home-align-end");
+                                $("#contentDiv").load(
+                                    '{{URL("apertment/rent/ajaxload")}}');
                                 swal(result, "Deleted Successfully.", "success");
                             }
 
