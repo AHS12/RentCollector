@@ -104,7 +104,7 @@
                                                                             data-toggle="tooltip" data-placement="top"
                                                                             title="" data-original-title="Edit"
                                                                             onclick="editApertment('{{encrypt($apertment->id)}}')"><i
-                                                                                class='bx bx-edit'></i></button>
+                                                                                class='bx       '></i></button>
                                                                         <button
                                                                             class="btn btn-outline-dark round mr-1 mb-1 btn-xs"
                                                                             data-toggle="tooltip" data-placement="top"

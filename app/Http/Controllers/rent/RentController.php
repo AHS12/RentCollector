@@ -52,6 +52,32 @@ class RentController extends Controller
         return view('rent.home.ajaxLoad.rentAjaxLoad', $data);
     }
 
+
+
+    /**
+     * @name rentApertmentDetailsView
+     * @role a rent of an apertment Details view
+     * @param Request from array
+     * @return compact array with view
+     *
+     */
+    public function rentApertmentDetailsView(Request $request)
+    {
+        $id = $request->id;
+        $userId = Auth::user()->id;
+        if (!RentModel::where('id', $id)->exists()) abort(404);
+        if (!RentModel::where('id', $id)->where('user_id', $userId)->exists()) abort(401);
+        
+        $apertments = ApertmentModel::where('soft_delete', 0)->where('user_id', $userId)->get();
+        $rent = RentModel::where('id', $id)->where('user_id', $userId)->with('apertment')->first();
+        //dd($rent);
+        $data = [
+            'rent'      => $rent,
+            'apertments' => $apertments
+        ];
+        return view('rent.home.rentDetails', $data);
+    }
+
     /**
      * @name getRentApertmentDetails
      * @role fetch Rent of an Apertment record from the database

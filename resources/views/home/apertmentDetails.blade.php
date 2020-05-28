@@ -30,10 +30,29 @@
 
 
         </div>
+        <div class="card invoice-action-wrapper shadow-none border">
+            <div class="card-body">
+                <div class="invoice-action-btn">
+                    <a href="javascript:void(0);" onclick="editApertment('{{encrypt($apertment->id)}}')"
+                        class="btn btn-light-primary btn-block">
+                        <i class='bx bx-edit'></i>
+                        <span>Edit</span>
+                    </a>
+                </div>
+                <br>
+                <div class="invoice-action-btn">
+                    <button onclick="deleteApertment('{{encrypt($apertment->id)}}')"
+                        class="btn btn-danger btn-block invoice-send-btn">
+                        <i class='bx bx-trash'></i>
+                        <span>Delete</span>
+                    </button>
+                </div>
 
-        <button class="btn btn-outline-dark round mr-1 mb-1 btn-xs" data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Edit Apertment" onclick="editApertment('{{encrypt($apertment->id)}}')"><i
-                class='bx bx-edit'></i></button>
+
+            </div>
+        </div>
+
+
     </div>
     <div class="col-lg-8">
 
@@ -67,77 +86,78 @@
 
                 </div>
             </div>
-            <div class="col-lg-12" id="apertment-content2">
-                <div class="card">
+        </div>
+        <div class="col-lg-12" id="apertment-content2">
+            <div class="card">
 
-                    <div class="card-header d-flex justify-content-between align-items-center pb-1">
-                        <h4 class="card-title">Concern Person Details</h4>
-                    </div>
-
-                    <div class="table-responsive ps">
-                        <!-- table start -->
-                        <table class="table table-hover">
-
-                            <tbody>
-                                <tr>
-                                    <td> Name</td>
-                                    <td>{{$apertment->conecrn_person}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Phone</td>
-                                    <td>{{$apertment->conecrn_phone}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>{{$apertment->conecrn_email}}</td>
-
-                                </tr>
-                                <tr>
-                                    <td>NID/BIRTH CERTIFICATE/PASSPORT</td>
-                                    <td>{{$apertment->conecrn_nid_birth_passport}}</td>
-
-                                </tr>
-
-
-                            </tbody>
-                        </table>
-                        <!-- table ends -->
-
-
-                    </div>
+                <div class="card-header d-flex justify-content-between align-items-center pb-1">
+                    <h4 class="card-title">Concern Person Details</h4>
                 </div>
-                <div class="col-lg-12" id="apertment-content3">
-                    <div class="card">
 
-                        <div class="card-header d-flex justify-content-between align-items-center pb-1">
-                            <h4 class="card-title">Attachemnts</h4>
+                <div class="table-responsive ps">
+                    <!-- table start -->
+                    <table class="table table-hover">
+
+                        <tbody>
+                            <tr>
+                                <td> Name</td>
+                                <td>{{$apertment->conecrn_person}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{$apertment->conecrn_phone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{$apertment->conecrn_email}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>NID/BIRTH CERTIFICATE/PASSPORT</td>
+                                <td>{{$apertment->conecrn_nid_birth_passport}}</td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <!-- table ends -->
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" id="apertment-content3">
+            <div class="card">
+
+                <div class="card-header d-flex justify-content-between align-items-center pb-1">
+                    <h4 class="card-title">Attachemnts</h4>
+                </div>
+
+                <div class="mr-1 mb-1 ml-1 mu-1">
+
+                    <div class="row">
+                        @foreach ($apertment->attachments as $attachment)
+
+                        <div class="col-lg-3 mb-3" id="document{{$loop->iteration}}">
+                            <img width="124" height="85" src="{{asset($attachment->attachment_path)}}" alt="..."
+                                class="img-thumbnail" onclick="showImage(this,'{{$attachment->attachment_path}}')">
                         </div>
-
-                        <div class="mr-1 mb-1 ml-1 mu-1">
-
-                            <div class="row">
-                                @foreach ($apertment->attachments as $attachment)
-
-                                <div class="col-lg-3 mb-3" id="document{{$loop->iteration}}">
-                                    <img width="124" height="85" src="{{asset($attachment->attachment_path)}}" alt="..."
-                                        class="img-thumbnail"
-                                        onclick="showImage(this,'{{$attachment->attachment_path}}')">
-                                </div>
-                                @endforeach
+                        @endforeach
 
 
 
 
-                            </div>
-
-
-
-                        </div>
                     </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 {{-- Apertment Update Modal --}}
@@ -427,9 +447,12 @@
                                         "warning");
                                 } else {
                                     $(form).trigger('reset');
-                                    $("#apertment-content1").load(location.href + " #apertment-content1");
-                                    $("#apertment-content2").load(location.href + " #apertment-content2");
-                                    $("#apertment-content3").load(location.href + " #apertment-content3");
+                                    $("#apertment-content1").load(location.href +
+                                        " #apertment-content1");
+                                    $("#apertment-content2").load(location.href +
+                                        " #apertment-content2");
+                                    $("#apertment-content3").load(location.href +
+                                        " #apertment-content3");
                                     swal(result, "Data inserted Successfully.", "success");
                                 }
 
@@ -636,8 +659,8 @@
                                     "warning");
                             } else {
                                 $("#apertment-content1").load(location.href + " #apertment-content1");
-                                    $("#apertment-content2").load(location.href + " #apertment-content2");
-                                    $("#apertment-content3").load(location.href + " #apertment-content3");
+                                $("#apertment-content2").load(location.href + " #apertment-content2");
+                                $("#apertment-content3").load(location.href + " #apertment-content3");
                                 $(data).closest('tr').remove();
                                 swal(result, "Deleted Successfully.", "success");
                             }
@@ -694,7 +717,8 @@
         markup += '<div class="form-group">';
         markup += '<div class="controls" id="attachment-div_update' + counter_update + '">';
         markup += '<label for="first-name-vertical">Concern Person Documents</label>';
-        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' + counter_update +
+        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' +
+            counter_update +
             '" class="form-control fileInputUpdate" required>';
         markup += '</div>';
         markup += '</div>';
@@ -733,6 +757,86 @@
         $("#download-url").val(url);
 
         $('#image-show-modal').modal('show');
+    }
+
+
+    /**
+     * @name deleteApertment
+     * @description send delete request to server
+     * @parameter apertment id
+     * @return json response
+     */
+    function deleteApertment(id) {
+        swal({
+                title: "Are you sure to Delete This?",
+                text: "You will not be able to recover this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "{{ url('apertment/delete') }}",
+                        method: "POST",
+                        data: {
+                            id: id
+                        },
+                        success: function (result) {
+                            if (typeof result.errors !== 'undefined') {
+                                swal("Error!", "Database Error!Please Try Again later!",
+                                    "warning");
+                            } else {
+
+                                swal(result, "Deleted Successfully.", "success");
+                                setTimeout(() => {
+                                    window.location.href = '{{URL("apertments")}}'
+                                });
+                            }
+
+                        },
+                        error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.Verify Network.';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 413) {
+                                msg = 'Request entity too large. [413]';
+                                swal("Error!", msg, "warning");
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                                swal("Error!", msg, "warning");
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                                swal("Error!", msg, "warning");
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                                swal("Error!", msg, "warning");
+                            }
+
+                        }
+                    });
+
+
+                } else {
+                    swal("Cancelled", "Your canceled this operation", "warning");
+                }
+            });
     }
 
     // function closeImge(){

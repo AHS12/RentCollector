@@ -1,229 +1,131 @@
 @extends('layouts.master')
 @section('content')
-<div class="row">
-    <div class="col-12">
+<div class="row justify-content-center">
+
+    <div class="col-lg-4">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title"><i class='bx bx-money'></i> Apertment Rents</h4>
+
+            <div class="card-header d-flex justify-content-between align-items-center pb-1">
+                <h4 class="card-title">Apertment Details</h4>
             </div>
-            <div class="card-content">
-                <div class="card-body card-dashboard">
+            <div class="card-header text-center" style="border-top: 2px solid cyan;">
 
-                    <div class="table-responsive" id="contentDiv">
-                        <table class="table zero-configuration">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Date</th>
-                                    <th>Month</th>
-                                    <th>Apertment</th>
-                                    <th>Original <br> Rent</th>
-                                    <th>Collected <br> Rent</th>
-                                    <th>Due</th>
-                                    <th>Expense</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($rents as $rent)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td onclick="rentDetails('{{$rent->id}}')">{{date('d-m-Y', strtotime($rent->date))}}</td>
-                                    <td onclick="rentDetails('{{$rent->id}}')">{{$rent->month}}</td>
-                                    <td onclick="rentDetails('{{$rent->id}}')">{{$rent->apertment->name}}</td>
-                                    <td>{{$rent->original_rent}}</td>
-                                    <td>{{$rent->rent}}</td>
-                                    <td>{{$rent->due}}</td>
-                                    <td>{{$rent->expense}}</td>
-                                    <td>
-                                        <a href="javaScript:void(0);" onclick="rentDetails('{{$rent->id}}')"
-                                            style="padding: 5px 10px;" class="btn btn-default btn-xs border"
-                                            data-toggle="tooltip" data-placement="top" title=""
-                                            data-original-title="Details">
-                                            <i class="bx bx-info-circle"></i>
-                                        </a>
-                                        <a href="javaScript:void(0);" onclick="editRent('{{encrypt($rent->id)}}')"
-                                            style="padding: 5px 10px;" class="btn btn-default btn-xs border"
-                                            data-toggle="tooltip" data-placement="top" title=""
-                                            data-original-title="Edit">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                        <a href="javaScript:void(0);" onclick="deleteRent('{{encrypt($rent->id)}}')"
-                                            style="padding: 5px 10px;" class="btn btn-default btn-xs border"
-                                            data-toggle="tooltip" data-placement="top" title=""
-                                            data-original-title="Delete">
-                                            <i class="bx bx-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                <div class="badge-circle badge-circle-lg badge-circle-light-info mx-auto my-1">
+                    <i class="bx bx-home font-medium-5"></i>
+                </div>
+                <br>
+                <p>{{$rent->apertment->name}}</p>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-unbordered">
+
+                    <li class="list-group-item listnoback">
+                        <b>Concern Person:</b> <a class="pull-right text-aqua">{{$rent->apertment->conecrn_person}}</a>
+                    </li>
+                    <li class="list-group-item listnoback">
+                        <b>Concern Phone:</b> <a class="pull-right text-aqua">{{$rent->apertment->conecrn_phone}}</a>
+                    </li>
+                    <li class="list-group-item listnoback">
+                        <b>Concern Email:</b> <a class="pull-right text-aqua">{{$rent->apertment->conecrn_email}}</a>
+                    </li>
+                    <li class="list-group-item listnoback">
+                        <b>NID/BIRTH CERTIFICATE/PASSPORT:</b> <a
+                            class="pull-right text-aqua">{{$rent->apertment->conecrn_nid_birth_passport}}</a>
+                    </li>
+
+
+                </ul>
+
+            </div>
 
 
 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Date</th>
-                                    <th>Month</th>
-                                    <th>Apertment</th>
-                                    <th>Original <br> Rent</th>
-                                    <th>Collected <br> Rent</th>
-                                    <th>Due</th>
-                                    <th>Expense</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+
+        </div>
+        <div class="card invoice-action-wrapper shadow-none border">
+            <div class="card-body">
+                <div class="invoice-action-btn">
+                    <a href="javascript:void(0);" onclick="editRent('{{encrypt($rent->id)}}')"
+                        class="btn btn-light-primary btn-block">
+                        <i class='bx bx-edit'></i>
+                        <span>Edit</span>
+                    </a>
+                </div>
+                <br>
+                <div class="invoice-action-btn">
+                    <button class="btn btn-primary btn-block invoice-send-btn">
+                        <i class='bx bx-receipt'></i>
+                        <span>Invoice</span>
+                    </button>
+                </div>
+                <br>
+                <div class="invoice-action-btn" onclick="deleteRent('{{encrypt($rent->id)}}')">
+                    <button class="btn btn-danger btn-block invoice-send-btn">
+                        <i class='bx bx-trash'></i>
+                        <span>Delete</span>
+                    </button>
                 </div>
             </div>
         </div>
+
+
     </div>
-</div>
+    <div class="col-lg-8">
 
+        <div class="col-lg-12" id="rent-content1">
+            <div class="card">
 
-{{-- floating action button --}}
-<button type="button" onclick="openModal('rent-add-modal')" data-toggle="tooltip" data-placement="top" title=""
-    data-original-title="Add New Rent" class="btn btn-info chat-demo-button btn-circle btn-xl"><i
-        class="fas fa-plus"></i>
-</button>
+                <div class="card-header d-flex justify-content-between align-items-center pb-1"
+                    style="border-top: 2px solid cyan;">
+                    <h4 class="card-title">Rent Details</h4>
+                </div>
 
+                <div class="table-responsive ps">
+                    <!-- table start -->
+                    <table class="table table-hover">
 
-{{-- add rent modal --}}
-<div class="modal fade text-left w-100" id="rent-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="rent-add-modal-title">Add Rent</h4>
-                <button type="button" class="close" onclick="closeModalStatic('rent-add-modal')" aria-label="Close">
-                    <i class="bx bx-x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="rentInsertForm">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="controls">
-                                    <label for="first-name-vertical">Choose Date</label>
-                                    <fieldset class="form-group position-relative has-icon-left">
-                                        <input type="text" id="rent-date" name="rent_date"
-                                            class="form-control pickadate-months-year" placeholder="Select Date"
-                                            required data-error="#errorDate">
-                                        <div id="errorDate"></div>
-                                        <div class="form-control-position">
-                                            <i class='bx bx-calendar'></i>
-                                        </div>
-                                    </fieldset>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="controls">
-                                    <label for="first-name-vertical">Select Apertment</label>
-                                    <select class=" form-control" id="apertment" name="apertment" required
-                                        data-error="#errorapertment">
-                                        <option value="" data-icon="bx bx-building-house" selected>
-                                            --SELECT APERTMENT--
-                                        </option>
-                                        @foreach ($apertments as $apertment)
-                                        <option value="{{$apertment->id}}" data-icon="bx bx-building-house">
-                                            {{$apertment->name}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div id="errorapertment"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-
-                                <div class="controls">
-                                    <label for="first-name-vertical">Original Rent</label>
-                                    <input type="number" onkeyup="calculateDueByRent(this,1)" id="original-rent"
-                                        name="original_rent" class="touchspin form-control text-center"
-                                        data-bts-step="0.5" data-bts-decimals="2" min="1" value="0" required
-                                        data-error="#errororent">
-                                </div>
-                                <div id="errororent"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-
-                                <div class="controls">
-                                    <label for="first-name-vertical">Collected Rent</label>
-                                    <input type="number" onkeyup="calculateDueByRentCollected(this,1)"
-                                        id="collected-rent" name="collected_rent"
-                                        class="touchspin form-control text-center" data-bts-step="0.5"
-                                        data-bts-decimals="2" min="0" value="0" required data-error="#errorcrent">
-
-                                </div>
-                                <div id="errorcrent"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-
-                                <div class="controls">
-                                    <label for="first-name-vertical">Due</label>
-                                    <input type="number" name="due_rent" onkeyup="calculateDue(this,1)"
-                                        class="touchspin form-control text-center" id="due" value="0"
-                                        data-bts-step="0.5" data-bts-decimals="2" min="0" required
-                                        data-error="#errordue">
-                                </div>
-                                <div id="errordue"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-
-                                <div class="controls">
-                                    <label for="first-name-vertical">Expense</label>
-                                    <input type="number" id="expense" name="expense"
-                                        class="touchspin form-control text-center" value="0" data-bts-step="0.5"
-                                        data-bts-decimals="2" min="0" required data-error="#errorexpense">
-                                </div>
-                                <div id="errorexpense"></div>
-                            </div>
-                        </div>
+                        <tbody>
+                            <tr>
+                                <td><b>Date:</b></td>
+                                <td>{{date('d-m-Y', strtotime($rent->date))}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Month:</b></td>
+                                <td>{{$rent->month}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Original Rent:</b></td>
+                                <td>{{$rent->original_rent}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Collected Rent:</b></td>
+                                <td>{{$rent->rent}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Due:</b></td>
+                                <td>{{$rent->due}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Expense:</b></td>
+                                <td>{{$rent->expense}}</td>
+                            </tr>
 
 
 
+                        </tbody>
+                    </table>
+                    <!-- table ends -->
 
 
-
-
-
-                    </div>
-                    {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" onclick="closeModalStatic('rent-add-modal')">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-                <button type="submit" id="save-btn" class="btn btn-primary ml-1">
-                    <i class="bx bx-check d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Save</span>
-                </button>
-                </form>
+                </div>
             </div>
         </div>
+
+
     </div>
 </div>
-
-
+</div>
+</div>
 {{-- Apertment Update Modal --}}
 
 <div class="modal fade text-left w-100" id="rent-update-modal" tabindex="-1" role="dialog"
@@ -334,12 +236,6 @@
                         </div>
 
 
-
-
-
-
-
-
                     </div>
                     {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
 
@@ -360,11 +256,11 @@
 </div>
 
 
+
 <script>
     $(document).ready(function () {
 
-        //initialize current insert form validations
-        initValidation();
+
         //initialize update form validation
         initValidationUpdate();
 
@@ -376,20 +272,6 @@
             selectMonths: !0
         })
 
-        //initializing the thouchspin function of Original rent
-        $('#original-rent').on('touchspin.on.startspin', function () {
-            calculateDueByRent(this, 1);
-        })
-
-        //initializing the thouchspin function of Original rent
-        $('#collected-rent').on('touchspin.on.startspin', function () {
-            calculateDueByRentCollected(this, 1);
-        })
-
-        //initializing the touchspin function of due
-        $('#due').on('touchspin.on.startspin', function () {
-            calculateDue(this, 1);
-        });
 
         //initializing the thouchspin function of Original rent update
         $('#original-rent-update').on('touchspin.on.startspin', function () {
@@ -603,152 +485,7 @@
     }
 
 
-    /**
-     * @name form onsubmit
-     * @description override the default form submission and submit the form manually.
-     *              also validate with .validate() method from jquery validation
-     * @parameter formid
-     * @return 
-     */
 
-
-    $('#rentInsertForm').submit(function (e) {
-        e.preventDefault();
-    }).validate({
-        rules: rules,
-        // messages: messages,
-        highlight: function (element) {
-            $(element).closest('.form-group').addClass('has-error');
-            $(element).addClass('select-class');
-
-        },
-        unhighlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
-            $(element).removeClass('select-class');
-        },
-        errorClass: 'help-block',
-        errorPlacement: function (error, element) {
-            var placement = $(element).data('error');
-            if (placement) {
-                $(placement).append(error)
-            } else {
-                error.insertAfter(element);
-            }
-        },
-
-        submitHandler: function (form) {
-            //console.log(form);
-            swal({
-                    title: "Are you sure to submit?",
-                    text: "Your data will be inserted!",
-                    type: "info",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-info",
-                    cancelButtonClass: "btn-warning",
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "No",
-                    closeOnConfirm: false,
-                    closeOnCancel: false,
-                    showLoaderOnConfirm: true
-                },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        $("#rent-add-modal").modal('hide');
-                        var formData = new FormData(form);
-                        $.ajax({
-                            url: "{{ url('apertment/rent/insert') }}",
-                            method: "POST",
-                            data: formData,
-                            enctype: 'multipart/form-data',
-                            processData: false,
-                            cache: false,
-                            contentType: false,
-                            timeout: 600000,
-                            success: function (result) {
-                                if (typeof result.errors !== 'undefined') {
-                                    // the variable is defined
-                                    swal.close()
-                                    var html = '';
-                                    var htmlDiv = '';
-                                    //console.log(result.errors);
-                                    $.each(result.errors, function (index, val) {
-                                        //console.log(index, val)
-                                        $.each(val, function (index, val) {
-                                            //console.log(index, val)
-                                            html +=
-                                                '<li class="list-group-item text-danger"><i class="bx bx-error"></i> ' +
-                                                val + '</li>';
-                                        });
-                                    });
-
-
-                                    htmlDiv += '<ul class="list-group border-danger">';
-                                    htmlDiv += html
-                                    htmlDiv += '</ul>';
-
-
-                                    // html += '<div class="alert border-danger mb-2" role="alert">';
-                                    // html +='<i class="bx bx-error"></i> Good Morning! Start your day with some alerts.';
-                                    // html += '</div>';
-                                    Swal.fire({
-                                        title: '<strong>Error!</strong>',
-                                        icon: 'error',
-                                        html: htmlDiv,
-                                        showCloseButton: true,
-                                        confirmButtonText: 'Close!',
-                                    })
-
-
-                                } else if (typeof result.dbErrors !== 'undefined') {
-                                    swal("Error!", "Database Error!Please Try Again later!",
-                                        "warning");
-                                } else {
-                                    $(form).trigger('reset');
-                                    $("#contentDiv").load(
-                                        '{{URL("apertment/rent/ajaxload")}}');
-                                    swal(result, "Data inserted Successfully.", "success");
-                                }
-
-                            },
-                            error: function (jqXHR, exception) {
-                                var msg = '';
-                                if (jqXHR.status === 0) {
-                                    msg = 'Not connect.Verify Network.';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 404) {
-                                    msg = 'Requested page not found. [404]';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 413) {
-                                    msg = 'Request entity too large. [413]';
-                                    swal("Error!", msg, "warning");
-                                } else if (jqXHR.status == 500) {
-                                    msg = 'Internal Server Error [500].';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'parsererror') {
-                                    msg = 'Requested JSON parse failed.';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'timeout') {
-                                    msg = 'Time out error.';
-                                    swal("Error!", msg, "warning");
-                                } else if (exception === 'abort') {
-                                    msg = 'Ajax request aborted.';
-                                    swal("Error!", msg, "warning");
-                                } else {
-                                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                                    swal("Error!", msg, "warning");
-                                }
-
-                            }
-                        });
-
-
-                    } else {
-                        swal("Cancelled", "Your canceled this operation", "warning");
-                    }
-                });
-            //console.log("validation success");
-        }
-    });
 
 
     /**
@@ -848,8 +585,8 @@
 
                                 } else {
                                     $(form).trigger('reset');
-                                    $("#contentDiv").load(
-                                        '{{URL("apertment/rent/ajaxload")}}');
+                                    $("#rent-content1").load(location.href +
+                                        " #rent-content1");
                                     swal(result, "Data Updated Successfully.", "success");
                                 }
 
@@ -896,36 +633,7 @@
 
 
 
-    /**
-     * @name initValidation
-     * @description initiate jquery validation for new form elements.
-     * @parameter
-     * @return 
-     */
-    function initValidation() {
-        // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
 
-
-        //get input, select, textarea of form
-        $('#rentInsertForm').find('input, select, textarea').each(function () {
-            var name = $(this).attr('name');
-            rules[name] = {};
-            messages[name] = {};
-
-            rules[name] = {
-                required: true
-            }; // set required true against every name
-            //apply more rules, you can also apply custom rules & messages
-
-
-
-
-        });
-
-        console.log(rules);
-
-
-    }
 
     /**
      * @name initValidation
@@ -983,21 +691,7 @@
         });
     }
 
-     /**
-     * @name apertmentDetails
-     * @description redirect to apertment Details page
-     * @parameter apertment id
-     * @return 
-     */
 
-     function rentDetails(id) {
-        console.log(id);
-        var url = "{{url('apertment/rent/details','id')}}";
-        url = url.replace('id',id);
-        console.log(url);
-        window.location.href = url;
-
-    }
 
 
 
@@ -1120,9 +814,11 @@
                                 swal("Error!", "Database Error!Please Try Again later!",
                                     "warning");
                             } else {
-                                $("#contentDiv").load(
-                                    '{{URL("apertment/rent/ajaxload")}}');
+                                
                                 swal(result, "Deleted Successfully.", "success");
+                                setTimeout(() => {
+                                    window.location.href = '{{URL("apertment/rents")}}'
+                                });
                             }
 
                         },

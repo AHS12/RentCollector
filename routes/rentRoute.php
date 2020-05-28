@@ -6,6 +6,7 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('apertment/rents','rent\RentController@rentApertmentView');
     Route::get('apertment/rent/ajaxload','rent\RentController@rentApertmentAjaxLoad');
+    Route::get('apertment/rent/details/{id}','rent\RentController@rentApertmentDetailsView');
  });
 
 //internal

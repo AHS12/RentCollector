@@ -17,18 +17,24 @@
             @foreach ($rents as $rent)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$rent->date}}</td>
-                <td>{{$rent->month}}</td>
-                <td>{{$rent->apertment->name}}</td>
+                <td onclick="rentDetails('{{$rent->id}}')">{{$rent->date}}</td>
+                <td onclick="rentDetails('{{$rent->id}}')">{{$rent->month}}</td>
+                <td onclick="rentDetails('{{$rent->id}}')">{{$rent->apertment->name}}</td>
                 <td>{{$rent->original_rent}}</td>
                 <td>{{$rent->rent}}</td>
                 <td>{{$rent->due}}</td>
                 <td>{{$rent->expense}}</td>
                 <td>
+                    <a href="javaScript:void(0);" onclick="rentDetails('{{encrypt($rent->id)}}')"
+                        style="padding: 5px 10px;" class="btn btn-default btn-xs border"
+                        data-toggle="tooltip" data-placement="top" title=""
+                        data-original-title="Details">
+                        <i class="bx bx-info-circle"></i>
+                    </a>
                     <a href="javaScript:void(0);" onclick="editRent('{{encrypt($rent->id)}}')"
                         style="padding: 5px 10px;" class="btn btn-default btn-xs border"
                         data-toggle="tooltip" data-placement="top" title=""
-                        data-original-title="Delete">
+                        data-original-title="Edit">
                         <i class="bx bx-edit"></i>
                     </a>
                     <a href="javaScript:void(0);" onclick="deleteRent('{{encrypt($rent->id)}}')"
