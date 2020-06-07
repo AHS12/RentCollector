@@ -18,26 +18,41 @@
             data-icon-style="lines">
             <li class=" navigation-header"><span>CORE</span>
             </li>
-        <li class=" @if (Route::getCurrentRoute()->uri() == "/") active @endif nav-item"><a href="{{URL('/')}}"><i
-                        class="bx bx-desktop"></i><span class="menu-title"
-                        data-i18n="Dashboard">Dashboard</span></a>
+            <li class=" @if (Route::getCurrentRoute()->uri() == "/") active @endif nav-item"><a href="{{URL('/')}}"><i
+                        class="bx bx-desktop"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
             </li>
 
-            <li class=" nav-item"><a href="javascript:void(0)"><i
-                        class="far fa-building"></i><span class="menu-title"
+            <li class=" nav-item"><a href="javascript:void(0)"><i class="far fa-building"></i><span class="menu-title"
                         data-i18n="Dashboard">Home/Apertment</span></a>
                 <ul class="menu-content">
-                    <li class=" @if (Route::getCurrentRoute()->uri() == "apertments"||Route::getCurrentRoute()->uri() == "apertment/details/{id}") active @endif "><a href="
+                    <li class=" @if (Route::getCurrentRoute()->uri() == " apertments"||Route::getCurrentRoute()->uri()
+                        == "apertment/details/{id}") active @endif "><a href="
                         {{URL('apertments')}}"><i class="fas fa-arrow-right"></i><span class="menu-item"
-                            data-i18n="eCommerce">Apertments</span></a>
+                                data-i18n="eCommerce">Apertments</span></a>
                     </li>
-                <li class="@if (Route::getCurrentRoute()->uri() == "apertment/rents"||Route::getCurrentRoute()->uri() == "apertment/rent/details/{id}") active @endif"><a href="{{URL('apertment/rents')}}"><i class="fas fa-arrow-right"></i><span class="menu-item"
-                                data-i18n="Analytics">Rents</span></a>
+                    <li class="@if (Route::getCurrentRoute()->uri() == "
+                        apertment/rents"||Route::getCurrentRoute()->uri()=="apertment/rent/details/{id}" ) active
+                        @endif"><a href="{{URL('apertment/rents')}}"><i class="fas fa-arrow-right"></i><span
+                                class="menu-item" data-i18n="Analytics">Rents</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="javascript:void(0)"><i class="bx bx-receipt"></i><span class="menu-title"
+                        data-i18n="Dashboard">Invoice</span></a>
+                <ul class="menu-content">
+                    <li class="@if (Route::getCurrentRoute()->uri() == "apertments"||Route::getCurrentRoute()->uri()== "apertment/details/{id}") active @endif "><a href="{{URL('apertments')}}">
+                        <i class="fas fa-arrow-right"></i>
+                        <span class="menu-item" data-i18n="eCommerce">Invoice List</span></a>
+                    </li>
+                    <li class="@if (Route::getCurrentRoute()->uri() == "invoice/new" ) active
+                        @endif"><a href="{{URL('invoice/new')}}"><i class="fas fa-arrow-right"></i><span
+                        class="menu-item" data-i18n="Analytics">Create Invoice</span></a>
                     </li>
                 </ul>
             </li>
 
         </ul>
     </div>
+
 
 </div>

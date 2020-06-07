@@ -34,8 +34,7 @@
                                     <div class="col-xl-3 col-md-4 col-sm-6">
                                         <div class="card text-center">
                                             <div class="card-content">
-                                                <div class="card-body"
-                                                    onclick="apertmentDetails({{$apertment->id}})">
+                                                <div class="card-body" onclick="apertmentDetails({{$apertment->id}})">
                                                     <div
                                                         class="badge-circle badge-circle-lg badge-circle-light-info mx-auto my-1">
                                                         <i class="bx bx-home font-medium-5"></i>
@@ -92,25 +91,31 @@
                                                             <tbody>
                                                                 @foreach ($apertments as $apertment)
                                                                 <tr>
-                                                                    <td  onclick="apertmentDetails({{$apertment->id}})">{{$apertment->name}}</td>
+                                                                    <td onclick="apertmentDetails({{$apertment->id}})">
+                                                                        {{$apertment->name}}</td>
                                                                     <td>{{$apertment->address}}</td>
                                                                     <td>{{$apertment->conecrn_person}}</td>
                                                                     <td>{{$apertment->conecrn_phone}}</td>
                                                                     <td>{{$apertment->conecrn_email}}</td>
 
                                                                     <td>
-                                                                        <button
-                                                                            class="btn btn-outline-dark round mr-1 mb-1 btn-xs"
+
+                                                                        <a href="javaScript:void(0);"
+                                                                            onclick="editApertment('{{encrypt($apertment->id)}}')"
+                                                                            style="padding: 5px 10px;"
+                                                                            class="btn btn-default btn-xs border"
                                                                             data-toggle="tooltip" data-placement="top"
-                                                                            title="" data-original-title="Edit"
-                                                                            onclick="editApertment('{{encrypt($apertment->id)}}')"><i
-                                                                                class='bx       '></i></button>
-                                                                        <button
-                                                                            class="btn btn-outline-dark round mr-1 mb-1 btn-xs"
+                                                                            title="" data-original-title="Edit">
+                                                                            <i class="bx bx-edit"></i>
+                                                                        </a>
+                                                                        <a href="javaScript:void(0);"
+                                                                            onclick="deleteApertment('{{encrypt($apertment->id)}}')"
+                                                                            style="padding: 5px 10px;"
+                                                                            class="btn btn-default btn-xs border"
                                                                             data-toggle="tooltip" data-placement="top"
-                                                                            title="" data-original-title="Delete"
-                                                                            onclick="deleteApertment('{{encrypt($apertment->id)}}')"><i
-                                                                                class='bx bx-trash'></i></button>
+                                                                            title="" data-original-title="Delete">
+                                                                            <i class="bx bx-trash"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                                 @endforeach
@@ -823,7 +828,7 @@
     function apertmentDetails(id) {
         console.log(id);
         var url = "{{url('apertment/details','id')}}";
-        url = url.replace('id',id);
+        url = url.replace('id', id);
         console.log(url);
         window.location.href = url;
 
@@ -1120,7 +1125,8 @@
         markup += '<div class="form-group">';
         markup += '<div class="controls" id="attachment-div_update' + counter_update + '">';
         markup += '<label for="first-name-vertical">Concern Person Documents</label>';
-        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' + counter_update +
+        markup += '<input type="file" name="attachment[' + counter_update + ']" id="attachment_update' +
+            counter_update +
             '" class="form-control fileInputUpdate" required>';
         markup += '</div>';
         markup += '</div>';

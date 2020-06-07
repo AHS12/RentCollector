@@ -62,6 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="{{asset('packages/bootstrap-sweetalert/dist/sweetalert.css')}}">
     
     <link rel="stylesheet" type="text/css" href="{{asset('packages/sweetalert2/dist/sweetalert2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice.min.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -147,6 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/vendors/js/pickers/daterange/moment.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/pickers/daterange/daterangepicker.js')}}"></script>
     <script src="{{asset('app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/forms/repeater/jquery.repeater.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -163,6 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{asset('app-assets/js/scripts/modal/components-modal.min.js')}}"></script>
     <script src="{{asset('app-assets/js/scripts/forms/select/form-select2.min.js')}}"></script>
     <script src="{{asset('app-assets/js/scripts/forms/number-input.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/pages/app-invoice.min.js')}}"></script>
     {{-- <script src="{{asset('app-assets/js/scripts/pickers/dateTime/pick-a-datetime.min.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/forms/validation/form-validation.js')}}"></script> --}}
     {{-- <script src="{{asset('app-assets/js/scripts/extensions/dropzone.min.js')}}"></script> --}}
