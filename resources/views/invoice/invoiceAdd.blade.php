@@ -490,7 +490,7 @@
         console.log(data.value);
         console.log(phase);
         if (phase == 1) {
-            var collectedRent = parseFloat(data.value);
+            var collectedRent = parseFloat(data.value).toFixed(2);
             $("#collected-rent-span").text(collectedRent);
             var originalRent = parseFloat($('#original-rent').val());
             if (collectedRent > originalRent) {
@@ -517,7 +517,7 @@
 
             }
         } else {
-            var collectedRent = parseFloat(data.value);
+            var collectedRent = parseFloat(data.value).toFixed(2);
             $("#collected-rent-span").text(collectedRent);
             var originalRent = parseFloat($('#original-rent-update').val());
             if (collectedRent > originalRent) {
