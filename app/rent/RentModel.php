@@ -3,6 +3,7 @@
 namespace App\rent;
 
 use App\home\ApertmentModel;
+use App\invoice\InvoiceModel;
 use App\shop\ShopModel;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -43,5 +44,10 @@ class RentModel extends Model
     public function shop()
     {
         return $this->belongsTo(ShopModel::class, 'shop_id', 'id');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(InvoiceModel::class, 'rent_id', 'id');
     }
 }

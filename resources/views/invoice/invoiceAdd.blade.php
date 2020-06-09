@@ -41,7 +41,7 @@
                                 <div class="col-sm-6 col-12 order-2 order-sm-1">
                                     <h4 class="text-primary">Invoice Name</h4>
                                     <input type="text" id="invoice-name" name="invoice_name" class="form-control"
-                                        placeholder="Invoice Name" data-error="#errorinvname" required>
+                                        placeholder="Invoice Name" data-error="#errorinvname" minlength="3" required>
                                     <div id="errorinvname"></div>
                                 </div>
 
@@ -54,12 +54,12 @@
                                     <h6 class="invoice-to">Bill To</h6>
                                     <fieldset class="invoice-address form-group">
                                         <input type="text" id="bill-name" name="bill_name" class="form-control"
-                                            placeholder="Concern Person" data-error="#errorbillname" required>
+                                            placeholder="Concern Person" minlength="3" data-error="#errorbillname" required>
                                         <div id="errorbillname"></div>
                                     </fieldset>
                                     <fieldset class="invoice-address form-group">
                                         <textarea class="form-control" id="bill-address" name="bill_address" rows="4"
-                                            placeholder="Address" data-error="#errorbilladdress" required></textarea>
+                                            placeholder="Address" minlength="5" data-error="#errorbilladdress" required></textarea>
                                         <div id="errorbilladdress"></div>
                                     </fieldset>
                                     <fieldset class="invoice-address form-group">
@@ -68,7 +68,7 @@
                                         <div id="errorbillemail"></div>
                                     </fieldset>
                                     <fieldset class="invoice-address form-group">
-                                        <input type="number" id="bill-phone" name="bill_phone" class="form-control"
+                                        <input type="number" id="bill-phone" name="bill_phone" min="0" pattern="^\d{11}$" minlength="11" maxlength="11" class="form-control"
                                             placeholder="Phone No." data-error="#errorbillphone" required>
                                         <div id="errorbillphone"></div>
                                     </fieldset>
@@ -133,7 +133,7 @@
 
                                         <div class="form-group">
                                             <input type="text" id="bill-note" name="bill_note" class="form-control"
-                                                placeholder="Add client Note" data-error="#errorbillnote" required>
+                                                placeholder="Add client Note" minlength="5" data-error="#errorbillnote" required>
                                             <div id="errorbillnote"></div>
                                         </div>
                                     </div>
@@ -267,7 +267,13 @@
                 required: true
             }; // set required true against every name
             //apply more rules, you can also apply custom rules & messages
-
+            if (name === "invoice_name" || name === "bill_name" || name === "bill_address" || name=== "bill_note") {
+                rules[name].minlength = 3;
+                //messages[name].email = "Please provide valid email";
+            } else if (name === 'bill_email') {
+                rules[name].email = true;
+                
+            }
 
 
 
@@ -290,6 +296,7 @@
 
     $('#invoiceInsertForm').submit(function (e) {
         e.preventDefault();
+        initValidation();
     }).validate({
         rules: rules,
         // messages: messages,
@@ -383,6 +390,9 @@
                                     $("#home-align-end").load(location.href +
                                         " #home-align-end");
                                     swal(result, "Data inserted Successfully.", "success");
+                                    setTimeout(()=>{
+                                        window.location.href="{{URL('invoices')}}"
+                                    },1000);
                                 }
 
                             },

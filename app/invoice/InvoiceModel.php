@@ -23,6 +23,7 @@ class InvoiceModel extends Model
         "date_issue",
         "date_due",
         "inv_no",
+        "inv_name",
         "bill_name",
         "bill_address",
         "bill_email",
@@ -33,7 +34,10 @@ class InvoiceModel extends Model
         "advance",
         "due",
         "expense",
+        "invoice_file_path",
         "status",
+        "created_by",
+        "updated_by"
     ];
 
     public function user()

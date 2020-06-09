@@ -27,6 +27,7 @@ class Invoices extends Migration
             $table->date('date_issue');
             $table->date('date_due')->nullable();
             $table->string('inv_no');
+            $table->string('inv_name');
             $table->string('bill_name');
             $table->string('bill_address');
             $table->string('bill_email');
@@ -38,6 +39,7 @@ class Invoices extends Migration
             $table->double('due',12,2)->nullable();
             $table->double('expense',12,2)->nullable();
             $table->integer('status')->default(0);
+            $table->text('invoice_file_path');
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
